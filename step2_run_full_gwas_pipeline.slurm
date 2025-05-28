@@ -3,7 +3,7 @@
 #SBATCH --output=logs/gwas_%A_%a.out
 #SBATCH --error=logs/gwas_%A_%a.err
 #SBATCH --array=1-22
-#SBATCH --time=72:00:00
+#SBATCH --time=04:00:00
 #SBATCH --mem=20G
 #SBATCH --cpus-per-task=1
 #SBATCH --exclude=node50,node51,node52,node53,node54,node55,node56,node57,node58,node59,node60,node61,node62,node63,node64,node65,node66,node67,node68,node69
