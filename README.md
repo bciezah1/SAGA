@@ -1,4 +1,13 @@
-# EeasyGWAS (GMMAT + SLURM)
+# EeasyGWAS 
+
+        ## GMMAT
+
+        run command:
+                - bash submit_all.sh ./ ./../toy_data/ ../toy_data/ model1
+
+        ## SAIGE
+
+                - sbatch saige.slurm ../toy_data/ model1
 
 This repository contains a SLURM-based pipeline for conducting single-marker genome-wide association studies (GWAS) using [GMMAT](https://github.com/hanchenphd/GMMAT), [PLINK](https://www.cog-genomics.org/plink/), and [GEMMA](https://github.com/genetics-statistics/GEMMA).
 
