@@ -1,0 +1,28 @@
+PLINK v1.90b6.26 64-bit (2 Apr 2022)
+Options in effect:
+  --bfile TOY_TARGET_DATA
+  --make-bed
+  --out updated_snps
+  --update-name snp_renaming.txt
+
+Hostname: hgrclogin01
+Working directory: /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/GMMAT/test_our_pipeline/SINGLE_MARKER/toy_data
+Start time: Tue May 27 17:07:28 2025
+
+Random number seed: 1748380048
+64283 MB RAM detected; reserving 32141 MB for main workspace.
+91062 variants loaded from .bim file.
+2000 people (1024 males, 976 females) loaded from .fam.
+2000 phenotype values loaded from .fam.
+--update-name: 91062 values updated.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 2000 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 648016 het. haploid genotypes present (see updated_snps.hh ); many
+commands treat these as missing.
+Total genotyping rate is exactly 1.
+91062 variants and 2000 people pass filters and QC.
+Among remaining phenotypes, 1000 are cases and 1000 are controls.
+--make-bed to updated_snps.bed + updated_snps.bim + updated_snps.fam ... done.
+
+End time: Tue May 27 17:07:28 2025

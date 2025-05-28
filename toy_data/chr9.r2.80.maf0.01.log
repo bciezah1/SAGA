@@ -1,0 +1,26 @@
+PLINK v1.90b6.26 64-bit (2 Apr 2022)
+Options in effect:
+  --bfile updated_snps
+  --chr 9
+  --make-bed
+  --out chr9.r2.80.maf0.01
+
+Hostname: hgrclogin01
+Working directory: /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/GMMAT/test_our_pipeline/SINGLE_MARKER/toy_data
+Start time: Tue May 27 17:09:14 2025
+
+Random number seed: 1748380154
+64283 MB RAM detected; reserving 32141 MB for main workspace.
+4136 out of 91062 variants loaded from .bim file.
+2000 people (1024 males, 976 females) loaded from .fam.
+2000 phenotype values loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 2000 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is exactly 1.
+4136 variants and 2000 people pass filters and QC.
+Among remaining phenotypes, 1000 are cases and 1000 are controls.
+--make-bed to chr9.r2.80.maf0.01.bed + chr9.r2.80.maf0.01.bim +
+chr9.r2.80.maf0.01.fam ... done.
+
+End time: Tue May 27 17:09:14 2025
