@@ -78,11 +78,11 @@ sbatch saige.slurm ../toy_data/ model1
 ##  📊 Outputs
 Each pipeline will generate the following:
 
-✅ GWAS summary statistics
+✅ GWAS summary statistics (sum_stat.txt)
 
-📈 Manhattan plot
+📈 Manhattan plot (Rect_Manhtn.PVAL.jpg)
 
-📉 QQ plot
+📉 QQ plot (qqplot_with_lambda.jpg)
 
 
 
