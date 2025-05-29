@@ -1,38 +1,63 @@
-# EeasyGWAS 
+# EasyGWAS
 
-## 🧾 Summary
+## 🧬 Summary
 
-EasyGWAS is a collection of pipelines to perform single marker GWAS using GMMAT and SAIGE. This tool has been developed with the goal of allowing no programmer scientist to perform GWAS on their genotyping/imputated data. 
+**EasyGWAS** is a collection of streamlined pipelines for performing single-marker GWAS using **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
-## 🧾 Required Inputs
+---
 
-EasyGWAS require 3 main inputs (listed below). To reduce issues, you should rename your corresponding files as they are label on our toy_data folder.
+## 📥 Required Inputs
 
-        - High quality imputation data (plink format) to calculate kinship (R2=0.99 & MAF=0.05)
-        - Dosage data (plink format) to perform association (Suggested R2=0.80 & MAF=0.01)
-        - Pheno file (Should include FID, IID, ADRD, SEX, AGE, and APOEe4).
+EasyGWAS requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
 
-        Note: To check format and name of the files, please, review the format/label/etc on the toy_data folder.
+### Input Files:
 
-## 🧾 Pipelines
+- **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
+  _Recommended: `R² ≥ 0.99`, `MAF ≥ 0.05`_
 
-Two main pipelines have been implemented (GMMAT & SAIGE) so far. We recommend to first run the pipelines (as suggested bellow), and then replace your files by the corresponding files on the toy_data and re run the same command. 
-        
-        ## GMMAT
+- **Association input (PLINK format):** Dosage or genotype data for association testing.  
+  _Recommended: `R² ≥ 0.80`, `MAF ≥ 0.01`_
 
-                ## How to Run
+- **Phenotype file:** Must include the following columns:  
+  `FID`, `IID`, `ADRD`, `SEX`, `AGE`, `APOEe4`
 
-                - bash submit_all.sh ./ ./../toy_data/ ../toy_data/ model1
+> 📎 _Refer to the `toy_data/` folder to verify correct formatting and file naming._
 
-        ## SAIGE
+---
 
-                ## How to Run
+## 🚀 Pipelines
 
-                - sbatch saige.slurm ../toy_data/ model1
-## 🧾 Outputs:
+EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working before applying the pipeline to your own dataset.
 
-         - Summary Statistics
-         - Manhattan plot
-         - QQplot
+### 🔧 GMMAT Pipeline
+
+**Run with:**
+
+```bash
+bash submit_all.sh ./ ../toy_data/ ../toy_data/ model1
+
+```
+
+### 🔧 SAIGE Pipeline
+
+**Run with:**
+
+```bash
+sbatch saige.slurm ../toy_data/ model1
+```
+
+- Note: Saige require the image: Saige_1.3.0.sif inside the SAIGE folder. Please, just copy the saige image from my folder to your working directory: 
+
+  cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
+
+##  📊 Outputs
+Each pipeline will generate the following:
+
+✅ GWAS summary statistics
+
+📈 Manhattan plot
+
+📉 QQ plot
+
 
 
