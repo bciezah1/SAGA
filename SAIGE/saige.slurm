@@ -163,8 +163,9 @@ EOF
 #           Cleanup          #
 #=============================#
 rm -f temp* pcs.tmp pc_title.tmp pc_ready.tmp title
-#mv *jpg ./output/summary_plots/
+mv *jpg ./output/summary_plots/
 mv output/saige_output/sum_stats.txt .
+mv ./output/summary_plots/*jpg .
 
 echo "Chromosome ${CHR} processing complete."
 
