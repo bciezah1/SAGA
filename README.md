@@ -50,6 +50,8 @@ EasyGWAS requires **three main input files**. To minimize errors, we recommend r
 
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
+> ⚠️ **Important:** You will need to have installed 
+
 
 ---
 
@@ -62,7 +64,10 @@ EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We
 **Run with:**
 
 ```bash
-bash submit_all.sh ./ ../toy_data/ ../toy_data/ model1
+
+1. Get inside the GMMAT folder.
+2. Run the command:
+      bash submit_all.sh ./ ../toy_data/ ../toy_data/ model1
 
 ```
 
@@ -71,7 +76,13 @@ bash submit_all.sh ./ ../toy_data/ ../toy_data/ model1
 **Run with:**
 
 ```bash
-sbatch saige.slurm ../toy_data/ model1
+
+1. Get inside the SAIGE folder.
+2. Run the command:
+    cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
+3. Run the command
+    sbatch saige.slurm ../toy_data/ model1
+
 ```
 
 - Note: Saige require the image: Saige_1.3.0.sif inside the SAIGE folder. Please, just copy the saige image from my folder to your working directory: 
