@@ -15,11 +15,36 @@ EasyGWAS requires **three main input files**. To minimize errors, we recommend r
 - **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
   _Recommended: `R² ≥ 0.99`, `MAF ≥ 0.05`_
 
+  expected label file:
+  
+      chr1_chr22.r2.99.maf0.05.bed
+      chr1_chr22.r2.99.maf0.05.bim
+      chr1_chr22.r2.99.maf0.05.fam
+
 - **Association input (PLINK format):** Dosage or genotype data for association testing.  
   _Recommended: `R² ≥ 0.80`, `MAF ≥ 0.01`_
 
+  expected label files:
+
+      chr1.r2.80.maf0.01.bed
+      chr1.r2.80.maf0.01.bim
+      chr1.r2.80.maf0.01.fam
+      ...
+      chr22.r2.80.maf0.01.bed
+      chr22.r2.80.maf0.01.bim
+      chr22.r2.80.maf0.01.fam
+
 - **Phenotype file:** Must include the following columns:  
   `FID`, `IID`, `ADRD`, `SEX`, `AGE`, `APOEe4`
+
+  expected pheno file format:
+
+      FID IID ADRD AGE SEX APOEe4
+      CAS_1 CAS_1 1 81 0 0
+      CAS_2 CAS_2 0 85 0 0
+      CAS_3 CAS_3 0 87 1 0
+      ...
+
 
 > 📎 _Refer to the `toy_data/` folder to verify correct formatting and file naming._
 
