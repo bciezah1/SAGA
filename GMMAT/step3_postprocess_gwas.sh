@@ -77,5 +77,6 @@ EOF
 
 echo "==> Cleaning up temporary files..."
 rm temp_*.txt manhattan_plot_input_sorted.txt
+mv manhattan_plot_input_sorted_"$model".txt sum_stats.txt
 
 echo "Post-processing completed successfully."
