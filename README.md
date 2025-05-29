@@ -47,8 +47,8 @@ EasyGWAS requires **three main input files**. To minimize errors, we recommend r
 
 
 > ⚠️ **Warning:** The number of participants and their order **must match exactly** between the PLINK files and the phenotype file.
->
-> > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
+
+> ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
 
 ---
