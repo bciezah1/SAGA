@@ -112,14 +112,21 @@ singularity run Saige_1.3.0.sif step2_SPAtests.R \
 #=============================#
 #      5. Post-Processing    #
 #=============================#
-awk '$7 >= 0.01 && $7 < 0.99' "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_body
-head -1 "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_head
-cat temp_head temp_body > temp_all
-awk 'NR > 1 {print $3,$1,$2,$4,$5,$9,$10,$13,$18,$19}' temp_all | awk '{print $0, $9 + $10}' > temp_final
-echo -e "SNP\tCHR\tBP\tAllele1\tAllele2\tBETA\tSE\tPVAL\tN_CASES\tN_CONTROL\tN" > title
-cat title temp_final > "${OUTPUT_DIR}/saige_output/sum_stats.txt"
 
-awk '{print $1,$2,$3,$8}' "${OUTPUT_DIR}/saige_output/sum_stats.txt" | sed 's/ /\t/g' > "${OUTPUT_DIR}/saige_output/manhattan_input.txt"
+awk '$7 >= 0.01 && $7 < 0.99' "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_body
+
+echo "SNP CHR POS Allele1 Allele2 AF BETA SE PVAL N" > title
+awk '{print $3,$1,$2,$4,$5,$7,$9,$10,$13,$18+$19}' temp_body > temp1
+sed -i '1d' temp1
+cat title temp1 | sed 's/ /\t/g' > "${OUTPUT_DIR}/saige_output/sum_stats.txt"
+
+#head -1 "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_head
+#cat temp_head temp_body > temp_all
+#awk 'NR > 1 {print $3,$1,$2,$4,$5,$9,$10,$13,$18,$19}' temp_all | awk '{print $0, $9 + $10}' > temp_final
+#echo -e "SNP\tCHR\tBP\tAllele1\tAllele2\tBETA\tSE\tPVAL\tN_CASES\tN_CONTROL\tN" > title
+#cat title temp_final > "${OUTPUT_DIR}/saige_output/sum_stats.txt"
+
+awk '{print $1,$2,$3,$9}' "${OUTPUT_DIR}/saige_output/sum_stats.txt" | sed 's/ /\t/g' > "${OUTPUT_DIR}/saige_output/manhattan_input.txt"
 
 #=============================#
 #     6. Manhattan + QQ      #
