@@ -1,0 +1,1 @@
+./run_pipeline_saige.sh ../../toy_data/ model1
