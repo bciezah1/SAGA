@@ -1,1 +1,0 @@
-./run_pipeline_gmmat.sh ./ ../../toy_data/ ../../toy_data/ model1

@@ -1,0 +1,1 @@
+./run_pipeline_gmmat.sh ./ /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ "ADRD ~ AGE + SEX + PC1 + PC2 + PC3 + PC4 + PC5" 

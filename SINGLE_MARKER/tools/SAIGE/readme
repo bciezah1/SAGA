@@ -1,0 +1,3 @@
+ #./run_pipeline_saige.sh ../../toy_data/ SEX,AGE,PC1,PC2,PC3 SEX model1  1
+
+#  ./run_pipeline_saige.sh /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ AGE,SEX SEX model1 1

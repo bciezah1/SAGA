@@ -1,0 +1,1 @@
+rm -r output/ *jpg my* logs/ tmp/ manhattan_plot_input_ready.txt  sum_stats.txt pheno_with_pcs.txt
