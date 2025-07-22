@@ -1,4 +1,4 @@
-# EasyGWAS
+# SuperEasyGWAS
 
 ## 🧬 Summary
 
