@@ -8,18 +8,19 @@ set -euo pipefail
 #=============================#
 #       INPUT ARGUMENTS       #
 #=============================#
-if [ $# -lt 6 ]; then
-  echo "Usage: $0 <PLINK_GENO> <PLINK_PHENO> <COVAR_LIST> <QCOVAR_LIST> <PHENO_COL> <TRAIT_TYPE>"
+if [ $# -lt 7 ]; then
+  echo "Usage: $0 <INPUT_GENO_KINSHIP> <INPUT_GENO_DOSAGE> <PLINK_PHENO> <COVAR_LIST> <QCOVAR_LIST> <PHENO_COL> <TRAIT_TYPE>"
   echo "TRAIT_TYPE: binary or quantitative"
   exit 1
 fi
 
-INPUT_GENO=$1
-INPUT_PHENO=$2
-COVAR_LIST=$3
-QCOVAR_LIST=$4
-DIAG_INPUT=$5
-TRAIT_TYPE=$6   # binary or quantitative
+INPUT_GENO_KINSHIP=$1
+INPUT_GENO_DOSAGE=$2
+INPUT_PHENO=$3
+COVAR_LIST=$4
+QCOVAR_LIST=$5
+DIAG_INPUT=$6
+TRAIT_TYPE=$7   # binary or quantitative
 
 #=============================#
 #         VARIABLES           #
@@ -38,7 +39,7 @@ echo "Quantitative Covariates: $QCOVAR_LIST"
 PCA_OUT="${OUTPUT_DIR}/mypc"
 PHENO_WITH_PCS="${OUTPUT_DIR}/pheno_with_pcs.txt"
 
-../bin/plink --bfile "$INPUT_GENO" --pca 10 --out "$PCA_OUT"
+../bin/plink --bfile "$INPUT_GENO_KINSHIP" --pca 10 --out "$PCA_OUT"
 awk '{print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${PCA_OUT}.eigenvec > pcs.tmp
 echo -e "PC1 PC2 PC3 PC4 PC5 PC6 PC7 PC8 PC9 PC10" > pc_title.tmp
 cat pc_title.tmp pcs.tmp > pc_ready.tmp
@@ -49,7 +50,7 @@ sed -i '1s/ //g' "$PHENO_WITH_PCS"
 #       2. Sparse GRM         #
 #=============================#
 singularity run Saige_1.3.0.sif createSparseGRM.R \
-  --plinkFile="$INPUT_GENO" \
+  --plinkFile="$INPUT_GENO_KINSHIP" \
   --nThreads=4 \
   --outputPrefix="${OUTPUT_DIR}/sparseGRM/sparseGRM" \
   --numRandomMarkerforSparseKin=2000 \
@@ -62,7 +63,7 @@ singularity run Saige_1.3.0.sif step1_fitNULLGLMM.R \
   --sparseGRMFile="${OUTPUT_DIR}/sparseGRM/sparseGRM_relatednessCutoff_0.125_2000_randomMarkersUsed.sparseGRM.mtx" \
   --sparseGRMSampleIDFile="${OUTPUT_DIR}/sparseGRM/sparseGRM_relatednessCutoff_0.125_2000_randomMarkersUsed.sparseGRM.mtx.sampleIDs.txt" \
   --useSparseGRMtoFitNULL=TRUE \
-  --plinkFile="$INPUT_GENO" \
+  --plinkFile="$INPUT_GENO_KINSHIP" \
   --phenoFile="$PHENO_WITH_PCS" \
   --phenoCol=$DIAG_INPUT \
   --covarColList=${COVAR_LIST} \
@@ -77,9 +78,9 @@ singularity run Saige_1.3.0.sif step1_fitNULLGLMM.R \
 #      4. SAIGE Step 2        #
 #=============================#
 singularity run Saige_1.3.0.sif step2_SPAtests.R \
-  --bedFile="${INPUT_GENO}.bed" \
-  --bimFile="${INPUT_GENO}.bim" \
-  --famFile="${INPUT_GENO}.fam" \
+  --bedFile="${INPUT_GENO_DOSAGE}.bed" \
+  --bimFile="${INPUT_GENO_DOSAGE}.bim" \
+  --famFile="${INPUT_GENO_DOSAGE}.fam" \
   --AlleleOrder=alt-first \
   --SAIGEOutputFile="${OUTPUT_DIR}/saige_output/saige_results.txt" \
   --GMMATmodelFile="${OUTPUT_DIR}/saige_output/fit_null.rda" \

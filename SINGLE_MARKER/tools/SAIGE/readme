@@ -1,10 +1,11 @@
 # how to run it:
-./run_pipeline_saige.sh ../../../toy_data/genotype ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
+ ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
 
 # Explanation
 
 ./run_pipeline_saige.sh \			# main script
-../../../toy_data/genotype \			# genotype data
+../../../toy_data/input_kinship \		# kinship input
+../../../toy_data/input_dosage \		# dosage input
 ../../../toy_data/pheno_binary.txt  \		# pheno data	
 AGE,SEX, \					# list of covariates
 SEX \						# binary covariates

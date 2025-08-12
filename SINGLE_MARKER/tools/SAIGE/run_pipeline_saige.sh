@@ -1,12 +1,13 @@
 #!/bin/bash
 
 
-INPUT_GENO=$1
-INPUT_PHENO=$2
-COVAR_LIST=$3
-QCOVAR_LIST=$4
-DIAG_INPUT=$5
-TYPE=$6
+INPUT_GENO_KINSHIP=$1
+INPUT_GENO_DOSAGE=$2
+INPUT_PHENO=$3
+COVAR_LIST=$4
+QCOVAR_LIST=$5
+DIAG_INPUT=$6
+TYPE=$7
 
 
 CHR=$5  # Single chromosome to process (e.g. 1 to 22)
@@ -17,7 +18,7 @@ export PATH="$(pwd)/bin:$PATH"
 START_TIME=$(date +%s)
 
 # Call the analysis script
-bash saige.sh "$INPUT_GENO" "$INPUT_PHENO" "$COVAR_LIST" "$QCOVAR_LIST" "$DIAG_INPUT" "$TYPE"
+bash saige.sh "$INPUT_GENO_KINSHIP" "$INPUT_GENO_DOSAGE" "$INPUT_PHENO" "$COVAR_LIST" "$QCOVAR_LIST" "$DIAG_INPUT" "$TYPE"
 
 # Stop timer
 END_TIME=$(date +%s)
