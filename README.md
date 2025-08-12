@@ -85,6 +85,7 @@ git clone https://github.com/bciezah1/SAGA.git
 cd SAGA
 
 ```
+---
 
 - ## Repository Structure
 
@@ -99,8 +100,11 @@ SAGA/
 └── toy_data/ # Example genotype and phenotype data
 
 ```
+---
 
-## 📥 Required Inputs
+- ##  How to Run it
+
+<!--
 
 SAGE requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
 
@@ -152,6 +156,8 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 ---
 
 ## 🚀 Pipelines
+
+-->
 
 SAGA includes three pipelines: The first one using **PLINK**, the second one using **GMMAT**, and third one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working properly before applying the pipeline to your own dataset.
 
