@@ -1,12 +1,12 @@
 # SAGA
 
-## 🧬 Summary
+- ## Summary
 
 **SAGA** is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
 ---
 
-## 🧬Background
+- ## Background
 
 A **Genome-Wide Association Study (GWAS)** is a statistical method used to scan the entire genome for genetic variants—most often single nucleotide polymorphisms (SNPs)—that are associated with specific traits or diseases.  
 By comparing genetic data from many individuals, GWAS can help identify variants linked to:
@@ -45,7 +45,7 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
-## Features
+- ## Features
 
 - **Three integrated GWAS backends:**
   - **PLINK** — fast linear/logistic regression for unrelated individuals.
@@ -62,12 +62,41 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
-## Installation
+- ## Dependencies
+
+- **Operating System**
+  - UNIX/Linux environment
+
+- **Software**
+  - [R 4.2.2](https://cran.r-project.org/)
+
+- **R Packages**
+  - [GMMAT](https://cran.r-project.org/web/packages/GMMAT/)
+  - [ggplot2](https://ggplot2.tidyverse.org/)
+  - [qqman](https://cran.r-project.org/web/packages/qqman/)
+
+---
+
+- ## Installation
 
 ```bash
 
 git clone https://github.com/bciezah1/SAGA.git
 cd SAGA
+
+```
+
+- ## Repository Structure
+
+```
+SAGA/
+├── SINGLE_MARKER/ # Main pipeline scripts and tools
+│ ├── tools/ # Tool-specific scripts and binaries
+│ │ ├── bin/ # Binaries for GWAS tools
+│ │ ├── GMMAT/ # GMMAT workflow scripts
+│ │ ├── PLINK/ # PLINK workflow scripts
+│ │ └── SAIGE/ # SAIGE workflow scripts and container
+└── toy_data/ # Example genotype and phenotype data
 
 ```
 
