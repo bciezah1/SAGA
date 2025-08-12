@@ -1,14 +1,14 @@
-# SuperEasyGWAS
+# SAGA
 
 ## 🧬 Summary
 
-**EasyGWAS** is a collection of streamlined pipelines for performing single-marker GWAS using **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
+**SAGA** is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
 ---
 
 ## 📥 Required Inputs
 
-EasyGWAS requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
+SAGE requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
 
 ### Input Files:
 
@@ -17,32 +17,29 @@ EasyGWAS requires **three main input files**. To minimize errors, we recommend r
 
   expected label file:
   
-      chr1_chr22.r2.99.maf0.05.bed
-      chr1_chr22.r2.99.maf0.05.bim
-      chr1_chr22.r2.99.maf0.05.fam
+      input_kinship.bed
+      input_kinship.bim
+      input_kinship.fam
 
 - **Association input (PLINK format):** Dosage or genotype data for association testing.  
   _Recommended: `R² ≥ 0.80`, `MAF ≥ 0.01`_
 
   expected label files:
 
-      chr1.r2.80.maf0.01.bed
-      chr1.r2.80.maf0.01.bim
-      chr1.r2.80.maf0.01.fam
-      ...
-      chr22.r2.80.maf0.01.bed
-      chr22.r2.80.maf0.01.bim
-      chr22.r2.80.maf0.01.fam
+      input_dosage.bed
+      input_dosage.bim
+      input_dosage.fam
 
 - **Phenotype file:** Must include the following columns:  
-  `FID`, `IID`, `ADRD`, `SEX`, `AGE`, `APOEe4`
+  `FID`, `IID`, `PHENO`, `SEX`, `AGE`, `APOEe4`
 
   expected pheno file format:
 
-      FID IID ADRD AGE SEX APOEe4
-      CAS_1 CAS_1 1 81 0 0
-      CAS_2 CAS_2 0 85 0 0
-      CAS_3 CAS_3 0 87 1 0
+      FID     IID     SEX     AGE     PHENO
+      FAM001  IND001  0       84      0
+      FAM002  IND002  0       85      1
+      FAM003  IND003  1       72      0
+
       ...
 
 
@@ -50,7 +47,10 @@ EasyGWAS requires **three main input files**. To minimize errors, we recommend r
 
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
-> ⚠️ **Important:** You will need to have installed 
+> ⚠️ **Important:** You will need to have installed on your linux system:
+        R/4.2.2
+>         
+        PLINK/1.9.10
 
 
 ---
