@@ -47,7 +47,10 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
-> ⚠️ **Important:** You will need to have installed 
+> ⚠️ **Important:** You will need to have installed on your linux system:
+        R/4.2.2
+>         
+        PLINK/1.9.10
 
 
 ---
