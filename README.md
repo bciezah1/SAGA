@@ -48,17 +48,37 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
 > ⚠️ **Important:** You will need to have installed on your linux system:
-        R (Version 4.2.2)
-           Libraries
-           - GMMAT
-           - CMplot
-           - qqman
+        R (Version 4.2.2) which should include the next libraries: GMMAT, CMplot, qqman
          
 ---
 
 ## 🚀 Pipelines
 
-SAGA includes two pipelines: one using **GMMAT** and one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working before applying the pipeline to your own dataset.
+SAGA includes three pipelines: The first one using **PLINK**, the second one using **GMMAT**, and third one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working properly before applying the pipeline to your own dataset.
+
+### 🔧 PLINK Pipeline
+
+**Run with:**
+
+```bash
+
+1. Get inside the PLINK folder.
+2. Run the command:
+      ./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  SEX,AGE PHENO quantitative
+
+
+# Explanation
+
+./run_pipeline_plink.sh \                               # main script
+../../../toy_data/genotype \                            # genotype data in plink format
+../../../toy_data/pheno_continue.txt  \                 # pheno file
+SEX,AGE \                                               # covariate list
+PHENO \                                                 # target variable
+quantitative                                            # type target variable
+(base) bc3045@node75:/mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/pipelines/pipeline/SuperEasyGWAS_v1.0/SINGLE_MARKER/tools/PLINK$
+
+
+```
 
 ### 🔧 GMMAT Pipeline
 
