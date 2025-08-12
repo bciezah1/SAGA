@@ -113,6 +113,8 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 - **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
   _Recommended: `R² ≥ 0.99`, `MAF ≥ 0.05`_
 
+  **NOTE: You do not need to specify how to FILTER the SNP. It is up to them.***
+
   expected label file:
   
       input_kinship.bed
@@ -130,6 +132,9 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 
 - **Phenotype file:** Must include the following columns:  
   `FID`, `IID`, `PHENO`, `SEX`, `AGE`, `APOEe4`
+
+  ** REMOVE APOEe4 ** --> use cov1, cov2,cov3, 'put a limit and mentioned it - write it on the readme'
+  
 
   expected pheno file format:
 
