@@ -1,14 +1,14 @@
-# SuperEasyGWAS
+# SAGA
 
 ## 🧬 Summary
 
-**EasyGWAS** is a collection of streamlined pipelines for performing single-marker GWAS using **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
+**SAGA** is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
 ---
 
 ## 📥 Required Inputs
 
-EasyGWAS requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
+SAGE requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
 
 ### Input Files:
 
