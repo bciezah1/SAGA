@@ -1,0 +1,28 @@
+PLINK v1.90b6.26 64-bit (2 Apr 2022)
+Options in effect:
+  --bfile genotype
+  --maf 0.05
+  --make-bed
+  --out input_kinship
+
+Hostname: node75
+Working directory: /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/pipelines/pipeline/SuperEasyGWAS_v1.0/toy_data
+Start time: Tue Aug 12 01:03:38 2025
+
+Random number seed: 1754975018
+515437 MB RAM detected; reserving 257718 MB for main workspace.
+10000 variants loaded from .bim file.
+1000 people (0 males, 0 females, 1000 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to input_kinship.nosex .
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 1000 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.951014.
+132 variants removed due to minor allele threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+9868 variants and 1000 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to input_kinship.bed + input_kinship.bim + input_kinship.fam ...
+done.
+
+End time: Tue Aug 12 01:03:38 2025
