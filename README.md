@@ -21,7 +21,7 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
       input_kinship.bim
       input_kinship.fam
 
-- **Association input (PLINK format):** Dosage or genotype data for association testing.  
+- **Dosage input (PLINK format):** Dosage or genotype data for association testing.  
   _Recommended: `R² ≥ 0.80`, `MAF ≥ 0.01`_
 
   expected label files:
