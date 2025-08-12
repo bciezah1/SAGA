@@ -48,16 +48,37 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
 > ⚠️ **Important:** You will need to have installed on your linux system:
-        R/4.2.2
->         
-        PLINK/1.9.10
-
-
+        R (Version 4.2.2) which should include the next libraries: GMMAT, CMplot, qqman
+         
 ---
 
 ## 🚀 Pipelines
 
-EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working before applying the pipeline to your own dataset.
+SAGA includes three pipelines: The first one using **PLINK**, the second one using **GMMAT**, and third one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working properly before applying the pipeline to your own dataset.
+
+### 🔧 PLINK Pipeline
+
+**Run with:**
+
+```bash
+
+1. Get inside the PLINK folder.
+2. Run the command:
+      ./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  SEX,AGE PHENO quantitative
+
+
+# Explanation
+
+./run_pipeline_plink.sh \                               # main script
+../../../toy_data/genotype \                            # genotype data in plink format
+../../../toy_data/pheno_continue.txt  \                 # pheno file
+SEX,AGE \                                               # covariate list
+PHENO \                                                 # target variable
+quantitative                                            # type target variable
+
+
+
+```
 
 ### 🔧 GMMAT Pipeline
 
@@ -67,7 +88,18 @@ EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We
 
 1. Get inside the GMMAT folder.
 2. Run the command:
-      bash submit_all.sh ./ ../toy_data/ ../toy_data/ model1
+      ./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt "PHENO ~ AGE + SEX" quantitative
+
+# explanation
+
+./run_pipeline_gmmat.sh  \                      # the main script
+./ \                                            # location of the working directory
+../../../toy_data/input_kinship \               # location of the genotype data for kinship
+../../../toy_data/input_dosage \                # location of the genotype (dosage)
+../../../toy_data/pheno_binary.txt \            # location of pheno file
+"PHENO ~ AGE + SEX" \                           # model selected
+quantitative                                    # type of pheno variable (quantitative or binary)
+
 
 ```
 
@@ -79,9 +111,21 @@ EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We
 
 1. Get inside the SAIGE folder.
 2. Run the command:
-    cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
+      cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
 3. Run the command
-    sbatch saige.slurm ../toy_data/ model1
+     ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
+
+# Explanation
+
+./run_pipeline_saige.sh \                       # main script
+../../../toy_data/input_kinship \               # kinship input
+../../../toy_data/input_dosage \                # dosage input
+../../../toy_data/pheno_binary.txt  \           # pheno data
+AGE,SEX, \                                      # list of covariates
+SEX \                                           # binary covariates
+PHENO \                                         # target variable
+quantitative                                    # type of variable
+
 
 ```
 
@@ -90,7 +134,7 @@ EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We
   cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
 
 ##  📊 Outputs
-Each pipeline will generate the following:
+Each pipeline will generate a folder with the following information:
 
 ✅ GWAS summary statistics (sum_stat.txt)
 
