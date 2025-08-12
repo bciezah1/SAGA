@@ -45,6 +45,31 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
+## Features
+
+- **Three integrated GWAS backends:**
+  - **PLINK** — fast linear/logistic regression for unrelated individuals.
+  - **GMMAT** — mixed models for family/related samples.
+  - **SAIGE** — scalable logistic mixed models for large and unbalanced case-control datasets.
+- **Automated preprocessing:**
+  - Sample/variant QC  
+  - PCA for population structure adjustment  
+  - Kinship matrix generation
+- **Standardized outputs:**
+  - Summary statistics
+  - High-resolution plots (`.png`, `.pdf`)
+- **Fully bash-based:** no SLURM or HPC dependency, works on any UNIX/Linux environment.
+
+---
+
+## Installation
+
+```bash
+
+git clone https://github.com/bciezah1/SAGA.git
+cd SAGA
+
+```
 
 ## 📥 Required Inputs
 
