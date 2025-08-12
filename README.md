@@ -6,6 +6,46 @@
 
 ---
 
+## 🧬Background
+
+A **Genome-Wide Association Study (GWAS)** is a statistical method used to scan the entire genome for genetic variants—most often single nucleotide polymorphisms (SNPs)—that are associated with specific traits or diseases.  
+By comparing genetic data from many individuals, GWAS can help identify variants linked to:
+- Common diseases (e.g., diabetes, Alzheimer’s)
+- Physical traits (e.g., height, cholesterol levels)
+- Drug responses and adverse reactions
+
+#### Why GWAS matters
+GWAS has transformed our understanding of the genetic architecture of complex traits, providing clues for:
+- Risk prediction
+- Disease prevention
+- Development of targeted therapies
+
+#### The problem
+Despite their value, GWAS can be **technically challenging** for newcomers because:
+- Data needs careful quality control and preprocessing.
+- Multiple specialized tools are required.
+- Analyses often require complex scripting and computational environments.
+
+#### The solution: SAGA
+**SAGA** simplifies this process into a **single, automated pipeline**.  
+
+Users provide:
+
+- Genotype data (in PLINK format)
+- Phenotype file (traits of interest)
+  
+SAGA handles:
+
+- Quality control  
+- Population structure adjustment  
+- Choice of optimal GWAS tool (PLINK, GMMAT, or SAIGE)  
+- Result visualization (Manhattan + QQ plots)  
+
+This lowers the entry barrier for clinicians, researchers, and students without advanced computational skills.
+
+---
+
+
 ## 📥 Required Inputs
 
 SAGE requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
