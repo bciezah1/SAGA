@@ -1,3 +1,4 @@
 #!/bin/bash
 
-rm -r output/ *jpg sum_stats.txt
+rm -r output
+rm runtime_log.txt

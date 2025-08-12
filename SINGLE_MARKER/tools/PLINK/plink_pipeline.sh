@@ -10,19 +10,47 @@ module load R/4.2.2
 #=============================#
 #       INPUT ARGUMENTS      #
 #=============================#
-if [ $# -lt 3 ]; then
-  echo "Usage: $0 <PLINK_DIR> <COVAR_LIST> <QCOVAR_LIST>"
+if [ $# -lt 5 ]; then
+  echo "Usage: $0 <GENO_INPUT> <PHENO_INPUT> <COVAR_LIST> <DIAGNOST_VAR> <TRAIT_TYPE>"
   exit 1
 fi
 
-PLINK_DIR=$1
-COVAR_LIST=$2
-QCOVAR_LIST=$3
+GENO_INPUT=$1
+INPUT_PHENO=$2
+COVAR_LIST=$3
+DIAGNOST_VAR=$4
+TRAIT_TYPE=$5
 
-MERGED_PREFIX="${PLINK_DIR}/random_10k_snps"
-PHENO_FILE="${PLINK_DIR}/pheno.txt"
-OUTPUT_DIR="./output"
-mkdir -p ${OUTPUT_DIR}/{sparseGRM,saige_output,summary_plots,logs}
+if [[ "$TRAIT_TYPE" == "binary" ]]; then
+  TEST="--logistic hide-covar --allow-no-sex --1 --freq"
+  GWAS_FILE="assoc.assoc.logistic"
+  echo "  "
+  echo "  "
+  echo "  "
+
+  echo "$GWAS_FILE"
+  echo "  "
+  echo "  "
+  echo "  "
+elif [[ "$TRAIT_TYPE" == "quantitative" ]]; then
+  TEST="--linear hide-covar --allow-no-sex --freq"
+  GWAS_FILE="assoc.assoc.linear"
+  echo "  "
+  echo "  "
+  echo "  "
+
+  echo "$GWAS_FILE"
+  echo "  "
+  echo "  "
+  echo "  "
+
+else
+  echo "Invalid TRAIT_TYPE: must be 'binary' or 'quantitative'"
+  exit 1
+fi
+
+
+OUTPUT_DIR="./"
 
 echo "Running association analysis"
 
@@ -32,34 +60,47 @@ echo "Running association analysis"
 PCA_OUT="${OUTPUT_DIR}/mypc"
 PHENO_WITH_PCS="${OUTPUT_DIR}/pheno_with_pcs.txt"
 
-plink --bfile "$MERGED_PREFIX" --pca 10 --out "$PCA_OUT"
+plink --bfile "$GENO_INPUT" --pca 10 --out "$PCA_OUT"
 
 # Add header and merge with phenotype
 awk '{print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${PCA_OUT}.eigenvec > pcs.tmp
 echo -e "PC1 PC2 PC3 PC4 PC5 PC6 PC7 PC8 PC9 PC10" > pc_title.tmp
 cat pc_title.tmp pcs.tmp > pc_ready.tmp
-paste "$PHENO_FILE" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
+paste "$INPUT_PHENO" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
 sed -i '1s/ //g' "$PHENO_WITH_PCS"
 
-# Create simplified pheno and covariate files
-awk '{print $1,$2,$6}' "$PHENO_WITH_PCS" > pheno
-awk '{print $1,$2,$3,$5}' "$PHENO_WITH_PCS" > covariates
 
-#=============================#
-#    2. Association Test     #
-#=============================#
+# Run PLINK association
+#plink --bfile "$GENO_INPUT" \
+#  --pheno pheno_with_pcs.txt --pheno-name "$DIAGNOST_VAR" \
+#  --covar pheno_with_pcs.txt \
+#  --covar-name ${COVAR_LIST} \
+#  --logistic hide-covar --allow-no-sex --1 --freq \
+#  --out assoc
 
-plink --bfile "$MERGED_PREFIX" \
-  --pheno pheno \
+
+plink --bfile "$GENO_INPUT" \
+  --pheno pheno_with_pcs.txt --pheno-name "$DIAGNOST_VAR" \
   --covar pheno_with_pcs.txt \
-  --covar-name SEX,AGE,PC1,PC2,PC3,PC4,PC5 \
-  --logistic hide-covar --allow-no-sex --1 --freq \
+  --covar-name ${COVAR_LIST} \
+  $TEST \
   --out assoc
+
+
 
 #=============================#
 #      3. Join Freq + GWAS   #
 #=============================#
-GWAS_FILE="assoc.assoc.logistic"
+#GWAS_FILE="assoc.assoc.linear"
+  echo "  "
+  echo "  "
+  echo "  "
+
+  echo "$GWAS_FILE"
+  echo "  "
+  echo "  "
+  echo "  "
+
 FREQ_FILE="assoc.frq"
 MERGED_FILE="assoc.merged.txt"
 

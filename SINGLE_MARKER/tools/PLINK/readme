@@ -1,1 +1,13 @@
-./run_pipeline_plink.sh /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ AGE,SEX SEX
+# How to run the pipeline
+
+./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  SEX,AGE PHENO quantitative
+
+
+# Explanation
+
+./run_pipeline_plink.sh \				# main script
+../../../toy_data/genotype \				# genotype data in plink format	
+../../../toy_data/pheno_continue.txt  \			# pheno file	
+SEX,AGE \						# covariate list
+PHENO \							# target variable
+quantitative						# type target variable

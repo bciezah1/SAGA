@@ -3,11 +3,15 @@ set -euo pipefail
 
 
 # File paths
-PHENO="${BFILE_PATH_MAF0_05_R2_099}"/pheno.txt
+PHENO="${PHENO_INPUT}"
+echo "This is my pheno"
+echo $PHENO
 PHENO_CLEAN=pheno_for_kinship.txt
 PHENO_GEMMA=pheno_fid_kinship.txt
-BFILE="${BFILE_PATH_MAF0_05_R2_099}"/random_10k_snps
-echo ">> Using BFILE_PATH_MAF0_05_R2_099: $BFILE"
+BFILE="${KINSHIP_INPUT}"
+echo "this is my geno for kinship"
+echo $BFILE
+echo ">> Using GENO to calculate KINSHIP: $KINSHIP_INPUT"
 KINSHIP_OUT=mykinship
 PCA_OUT=mypc
 PHENO_WITH_PCS=pheno_with_pcs.txt

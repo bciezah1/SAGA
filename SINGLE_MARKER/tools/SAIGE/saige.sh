@@ -6,80 +6,80 @@ module load R/4.2.2
 set -euo pipefail
 
 #=============================#
-#       INPUT ARGUMENTS      #
+#       INPUT ARGUMENTS       #
 #=============================#
-if [ $# -lt 5 ]; then
-  echo "Usage: $0 <PLINK_DIR> <COVAR_LIST> <QCOVAR_LIST> <MODEL_TAG> <CHR>"
+if [ $# -lt 6 ]; then
+  echo "Usage: $0 <PLINK_GENO> <PLINK_PHENO> <COVAR_LIST> <QCOVAR_LIST> <PHENO_COL> <TRAIT_TYPE>"
+  echo "TRAIT_TYPE: binary or quantitative"
   exit 1
 fi
 
-PLINK_DIR=$1
-COVAR_LIST=$2
-QCOVAR_LIST=$3
-MODEL_TAG=$4
-CHR=$5
+INPUT_GENO=$1
+INPUT_PHENO=$2
+COVAR_LIST=$3
+QCOVAR_LIST=$4
+DIAG_INPUT=$5
+TRAIT_TYPE=$6   # binary or quantitative
 
-echo "Running SAIGE for chromosome: $CHR"
+#=============================#
+#         VARIABLES           #
+#=============================#
+OUTPUT_DIR="./"
+mkdir -p ${OUTPUT_DIR}/{sparseGRM,saige_output,summary_plots,logs}
+
+echo "Phenotype column: $DIAG_INPUT"
+echo "Trait type: $TRAIT_TYPE"
 echo "Covariates: $COVAR_LIST"
 echo "Quantitative Covariates: $QCOVAR_LIST"
 
 #=============================#
-#         VARIABLES          #
-#=============================#
-MERGED_PREFIX="${PLINK_DIR}/random_10k_snps"
-INPUT_FILE="${PLINK_DIR}/random_10k_snps"
-PHENO_FILE="${PLINK_DIR}/pheno.txt"
-OUTPUT_DIR="./output"
-mkdir -p ${OUTPUT_DIR}/{sparseGRM,saige_output,summary_plots,logs}
-
-#=============================#
-#    1. PCA + Pheno with PCs #
+#    1. PCA + Pheno with PCs  #
 #=============================#
 PCA_OUT="${OUTPUT_DIR}/mypc"
 PHENO_WITH_PCS="${OUTPUT_DIR}/pheno_with_pcs.txt"
 
-../bin/plink --bfile "$MERGED_PREFIX" --pca 10 --out "$PCA_OUT"
+../bin/plink --bfile "$INPUT_GENO" --pca 10 --out "$PCA_OUT"
 awk '{print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${PCA_OUT}.eigenvec > pcs.tmp
 echo -e "PC1 PC2 PC3 PC4 PC5 PC6 PC7 PC8 PC9 PC10" > pc_title.tmp
 cat pc_title.tmp pcs.tmp > pc_ready.tmp
-paste "$PHENO_FILE" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
+paste "$INPUT_PHENO" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
 sed -i '1s/ //g' "$PHENO_WITH_PCS"
 
 #=============================#
-#       2. Sparse GRM        #
+#       2. Sparse GRM         #
 #=============================#
 singularity run Saige_1.3.0.sif createSparseGRM.R \
-  --plinkFile="$MERGED_PREFIX" \
+  --plinkFile="$INPUT_GENO" \
   --nThreads=4 \
   --outputPrefix="${OUTPUT_DIR}/sparseGRM/sparseGRM" \
   --numRandomMarkerforSparseKin=2000 \
   --relatednessCutoff=0.125
 
 #=============================#
-#     3. Fit Null Model      #
+#     3. Fit Null Model       #
 #=============================#
 singularity run Saige_1.3.0.sif step1_fitNULLGLMM.R \
   --sparseGRMFile="${OUTPUT_DIR}/sparseGRM/sparseGRM_relatednessCutoff_0.125_2000_randomMarkersUsed.sparseGRM.mtx" \
   --sparseGRMSampleIDFile="${OUTPUT_DIR}/sparseGRM/sparseGRM_relatednessCutoff_0.125_2000_randomMarkersUsed.sparseGRM.mtx.sampleIDs.txt" \
   --useSparseGRMtoFitNULL=TRUE \
-  --plinkFile="$MERGED_PREFIX" \
+  --plinkFile="$INPUT_GENO" \
   --phenoFile="$PHENO_WITH_PCS" \
-  --phenoCol=ADRD \
+  --phenoCol=$DIAG_INPUT \
   --covarColList=${COVAR_LIST} \
   --qCovarColList=${QCOVAR_LIST} \
   --sampleIDColinphenoFile=IID \
-  --traitType=binary \
+  --traitType=$TRAIT_TYPE \
   --outputPrefix="${OUTPUT_DIR}/saige_output/fit_null" \
   --skipVarianceRatioEstimation=FALSE \
   --IsOverwriteVarianceRatioFile=TRUE
 
 #=============================#
-#      4. SAIGE Step 2       #
+#      4. SAIGE Step 2        #
 #=============================#
 singularity run Saige_1.3.0.sif step2_SPAtests.R \
-  --bedFile="${INPUT_FILE}.bed" \
-  --bimFile="${INPUT_FILE}.bim" \
-  --famFile="${INPUT_FILE}.fam" \
+  --bedFile="${INPUT_GENO}.bed" \
+  --bimFile="${INPUT_GENO}.bim" \
+  --famFile="${INPUT_GENO}.fam" \
   --AlleleOrder=alt-first \
   --SAIGEOutputFile="${OUTPUT_DIR}/saige_output/saige_results.txt" \
   --GMMATmodelFile="${OUTPUT_DIR}/saige_output/fit_null.rda" \
@@ -93,7 +93,7 @@ singularity run Saige_1.3.0.sif step2_SPAtests.R \
   --is_fastTest=TRUE
 
 #=============================#
-#      5. Post-Processing    #
+#      5. Post-Processing     #
 #=============================#
 awk '$7 >= 0.01 && $7 < 0.99' "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_body
 
@@ -105,7 +105,7 @@ cat title temp1 | sed 's/ /\t/g' > "${OUTPUT_DIR}/saige_output/sum_stats.txt"
 awk '{print $1,$2,$3,$9}' "${OUTPUT_DIR}/saige_output/sum_stats.txt" | sed 's/ /\t/g' > "${OUTPUT_DIR}/saige_output/manhattan_input.txt"
 
 #=============================#
-#     6. Manhattan + QQ      #
+#     6. Manhattan + QQ       #
 #=============================#
 Rscript - <<EOF
 library(CMplot)
@@ -143,11 +143,8 @@ print(paste("Lambda:", lambda))
 EOF
 
 #=============================#
-#           Cleanup          #
+#           Cleanup           #
 #=============================#
 rm -f temp* pcs.tmp pc_title.tmp pc_ready.tmp title
-mv *jpg ./output/summary_plots/
-mv output/saige_output/sum_stats.txt .
-mv ./output/summary_plots/*jpg .
-
-echo "Chromosome ${CHR} processing complete."
+mv ./summary_plots/*jpg .
+mv ./saige_output/sum_stats.txt .

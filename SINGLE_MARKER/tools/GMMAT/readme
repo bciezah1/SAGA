@@ -1,1 +1,13 @@
-./run_pipeline_gmmat.sh ./ /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ "ADRD ~ AGE + SEX + PC1 + PC2 + PC3 + PC4 + PC5" 
+# How to run the pipeline
+
+./run_pipeline_gmmat.sh ./ ../../../toy_data/genotype ../../../toy_data/genotype ../../../toy_data/pheno_binary.txt "PHENO ~ AGE + SEX" quantitative
+
+# explanation
+
+./run_pipeline_gmmat.sh  \			# the main script
+./ ../../../toy_data/genotype \			# location of the genotype data for kinship
+../../../toy_data/genotype \			# location of the genotype data for sum stat
+../../../toy_data/pheno_binary.txt \		# location of pheno file
+"PHENO ~ AGE + SEX" \				# model selected
+quantitative					# type of pheno variable (quantitative or binary)	
+

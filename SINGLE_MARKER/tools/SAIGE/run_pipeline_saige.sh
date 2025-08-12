@@ -1,21 +1,42 @@
 #!/bin/bash
 
-if [ $# -lt 5 ]; then
-  echo "Usage: $0 <input_path> <covariates> <qcovariates> <model_tag> <chr>"
-  echo "Example: $0 ../../toy_data/ SEX,AGE,PC1,PC2,PC3 SEX model1 1"
-  exit 1
-fi
 
-INPUT_PATH=$1
-COVAR_LIST=$2
-QCOVAR_LIST=$3
-MODEL_TAG=$4
+INPUT_GENO=$1
+INPUT_PHENO=$2
+COVAR_LIST=$3
+QCOVAR_LIST=$4
+DIAG_INPUT=$5
+TYPE=$6
+
+
 CHR=$5  # Single chromosome to process (e.g. 1 to 22)
 
 export PATH="$(pwd)/bin:$PATH"
 
-# Call the analysis script
-bash saige.sh "$INPUT_PATH" "$COVAR_LIST" "$QCOVAR_LIST" "$MODEL_TAG" "$CHR"
+# Start timer
+START_TIME=$(date +%s)
 
-# how to run it:
-#  ./run_pipeline_saige.sh /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/PLINK_FILES/PRADI/ AGE,SEX SEX model1 1
+# Call the analysis script
+bash saige.sh "$INPUT_GENO" "$INPUT_PHENO" "$COVAR_LIST" "$QCOVAR_LIST" "$DIAG_INPUT" "$TYPE"
+
+# Stop timer
+END_TIME=$(date +%s)
+RUNTIME=$((END_TIME - START_TIME))
+
+# Print and log runtime
+echo "Runtime: $RUNTIME seconds"
+echo "$(date): ${GENO_INPUT}, ${PHENO_INPUT} -> ${RUNTIME} seconds" >> runtime_log.txt
+
+# organize
+mkdir output
+cd output
+mkdir plots tables
+cd ../
+mv *jpg ./output/plots
+mv ./saige_output/manhattan_input.txt pheno_with_pcs.txt  sum_stats.txt ./output/tables
+#mv ./saige_output/manhattan_input.txt ./output/tables/
+rm -r logs saige_output/ sparseGRM/ summary_plots/
+rm mypc.*
+
+
+
