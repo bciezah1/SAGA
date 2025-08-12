@@ -115,9 +115,8 @@ quantitative                                    # type of pheno variable (quanti
 ```bash
 
 1. Get inside the SAIGE folder.
-2. Run the command:
-      cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
-3. Run the command
+
+2. Run the command
      ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
 
 # Explanation
@@ -134,9 +133,6 @@ quantitative                                    # type of variable
 
 ```
 
-- Note: Saige require the image: Saige_1.3.0.sif inside the SAIGE folder. Please, just copy the saige image from my folder to your working directory: 
-
-  cp /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/SAIGE/test_our_pipeline/SINGLE_MARKER/Saige_1.3.0.sif ./
 
 ##  📊 Outputs
 Each pipeline will generate a folder with the following information:
