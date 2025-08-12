@@ -49,6 +49,11 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 
 > ⚠️ **Important:** You will need to have installed on your linux system:
         R (Version 4.2.2) which should include the next libraries: GMMAT, CMplot, qqman
+
+>  ⚠️ **Important:** Open permit to executables
+       Open permits for all files on the bin directory
+       Open permits for all files inside each pipeline folder GMMAT, SAIGE, and PLINK
+       Tip: To open permits, just go inside the folder mentioned, and run the next command: chmod +x *
          
 ---
 
