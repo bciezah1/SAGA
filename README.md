@@ -48,16 +48,17 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
 > ⚠️ **Important:** You will need to have installed on your linux system:
-        R/4.2.2
->         
-        PLINK/1.9.10
-
-
+        R (Version 4.2.2)
+           Libraries
+           - GMMAT
+           - CMplot
+           - qqman
+         
 ---
 
 ## 🚀 Pipelines
 
-EasyGWAS includes two pipelines: one using **GMMAT** and one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working before applying the pipeline to your own dataset.
+SAGA includes two pipelines: one using **GMMAT** and one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working before applying the pipeline to your own dataset.
 
 ### 🔧 GMMAT Pipeline
 
