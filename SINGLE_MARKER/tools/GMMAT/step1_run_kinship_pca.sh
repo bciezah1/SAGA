@@ -16,15 +16,15 @@ KINSHIP_OUT=mykinship
 PCA_OUT=mypc
 PHENO_WITH_PCS=pheno_with_pcs.txt
 
-echo ">> Step 1: Extract FID, IID, ADRD from phenotype file..."
+echo ">> Step 1: Extract FID, IID, PHENO from phenotype file..."
 awk '
 NR==1 {
   for (i=1; i<=NF; i++) {
     if ($i == "FID") fid=i;
     else if ($i == "IID") iid=i;
-    else if ($i == "ADRD") adrd=i;
+    else if ($i == "PHENO") adrd=i;
   }
-  print "FID IID ADRD";
+  print "FID IID PHENO";
 }
 NR>1 {
   print $fid, $iid, $adrd;

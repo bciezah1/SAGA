@@ -1,6 +1,6 @@
 # How to run the pipeline
 
-./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  SEX,AGE PHENO quantitative
+./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt COV1,COV2,COV3,COV4,COV5 PHENO quantitative
 
 
 # Explanation
@@ -8,6 +8,6 @@
 ./run_pipeline_plink.sh \				# main script
 ../../../toy_data/genotype \				# genotype data in plink format	
 ../../../toy_data/pheno_continue.txt  \			# pheno file	
-SEX,AGE \						# covariate list
+COV1,COV2,COV3,COV4,COV5 \				# covariate list (up to 5)
 PHENO \							# target variable
 quantitative						# type target variable

@@ -1,7 +1,6 @@
 # How to run the pipeline
 
-./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt "PHENO ~ AGE + SEX" quantitative
-
+./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt "PHENO ~ COV1 + COV2 " quantitative
 # explanation
 
 ./run_pipeline_gmmat.sh  \			# the main script
@@ -9,6 +8,6 @@
 ../../../toy_data/input_kinship \		# location of the genotype data for kinship
 ../../../toy_data/input_dosage \		# location of the genotype (dosage)
 ../../../toy_data/pheno_binary.txt \		# location of pheno file
-"PHENO ~ AGE + SEX" \				# model selected
+"PHENO ~ COV1 + COV2" \				# model selected
 quantitative					# type of pheno variable (quantitative or binary)	
 

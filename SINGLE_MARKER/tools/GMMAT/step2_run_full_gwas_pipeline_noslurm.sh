@@ -42,8 +42,9 @@ cat(">> Model formula:", model_formula_str, "\n")
 
 # Load phenotype data
 pheno_all <- read.table("./pheno_with_pcs.txt", header=TRUE)
-pheno_all\$AGE_normalized <- scale(pheno_all\$AGE)
+pheno_all\$AGE_normalized <- pheno_all\$AGE
 pheno_all\$id <- seq(1, nrow(pheno_all))
+print(pheno_all)
 
 # Load kinship matrix
 grm_all <- as.matrix(read.table("./mykinship.cXX.txt"))
