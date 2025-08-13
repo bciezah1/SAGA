@@ -96,7 +96,7 @@ SAGA/
 │ │ ├── bin/ # Binaries for GWAS tools
 │ │ ├── GMMAT/ # GMMAT workflow scripts
 │ │ ├── PLINK/ # PLINK workflow scripts
-│ │ └── SAIGE/ # SAIGE workflow scripts and container (https://github.com/bciezah1/SAGA/releases/tag/v1.0)
+│ │ └── SAIGE/ # SAIGE workflow scripts and container (https://github.com/bciezah1/SAGA/releases/download/v1.0/Saige_1.3.0.sif)
 └── toy_data/ # Example genotype and phenotype data
 
 ```
@@ -175,7 +175,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 ./run_pipeline_plink.sh \                               # main script
 ../../../toy_data/genotype \                            # genotype data in plink format
 ../../../toy_data/pheno_continue.txt  \                 # pheno file
-COV1,COV2,COV3 \                                               # covariate list
+COV1,COV2,COV3 \                                        # covariate list
 PHENO \                                                 # target variable
 quantitative                                            # type target variable
 
@@ -212,7 +212,7 @@ quantitative                                    # type of pheno variable (quanti
 
 ```bash
 
-1. Download the Saige image from https://github.com/bciezah1/SAGA/releases/tag/v1.0 and put the image in the SAIGE folder
+1. Download the Saige image from https://github.com/bciezah1/SAGA/releases/download/v1.0/Saige_1.3.0.sif and put the image in the SAIGE folder
 
 2. Get inside the SAIGE folder.
 
