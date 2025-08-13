@@ -96,7 +96,7 @@ SAGA/
 │ │ ├── bin/ # Binaries for GWAS tools
 │ │ ├── GMMAT/ # GMMAT workflow scripts
 │ │ ├── PLINK/ # PLINK workflow scripts
-│ │ └── SAIGE/ # SAIGE workflow scripts and container
+│ │ └── SAIGE/ # SAIGE workflow scripts and container (https://github.com/bciezah1/SAGA/releases/tag/v1.0)
 └── toy_data/ # Example genotype and phenotype data
 
 ```
@@ -212,7 +212,9 @@ quantitative                                    # type of pheno variable (quanti
 
 ```bash
 
-1. Get inside the SAIGE folder.
+1. Download the Saige image from https://github.com/bciezah1/SAGA/releases/tag/v1.0 and put the image in the SAIGE folder
+
+2. Get inside the SAIGE folder.
 
 2. Run the command
      ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
