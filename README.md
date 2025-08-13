@@ -2,7 +2,7 @@
 
 - ## Summary
 
-**SAGA** is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
+**SAGA** (Simplified Association Genomewide Analyses) is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
 ---
 
@@ -111,9 +111,6 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
 ### Input Files:
 
 - **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
-  _Recommended: `R² ≥ 0.99`, `MAF ≥ 0.05`_
-
-  **NOTE: You do not need to specify how to FILTER the SNP. It is up to them.***
 
   expected label file:
   
@@ -121,8 +118,7 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
       input_kinship.bim
       input_kinship.fam
 
-- **Dosage input (PLINK format):** Dosage or genotype data for association testing.  
-  _Recommended: `R² ≥ 0.80`, `MAF ≥ 0.01`_
+- **Dosage input (PLINK format):** Dosage or genotype data.  
 
   expected label files:
 
@@ -131,14 +127,11 @@ SAGE requires **three main input files**. To minimize errors, we recommend renam
       input_dosage.fam
 
 - **Phenotype file:** Must include the following columns:  
-  `FID`, `IID`, `PHENO`, `SEX`, `AGE`, `APOEe4`
-
-  ** REMOVE APOEe4 ** --> use cov1, cov2,cov3, 'put a limit and mentioned it - write it on the readme'
+  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`
   
-
   expected pheno file format:
 
-      FID     IID     SEX     AGE     PHENO
+      FID     IID     COV1    COV2    PHENO
       FAM001  IND001  0       84      0
       FAM002  IND002  0       85      1
       FAM003  IND003  1       72      0
@@ -182,7 +175,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 ./run_pipeline_plink.sh \                               # main script
 ../../../toy_data/genotype \                            # genotype data in plink format
 ../../../toy_data/pheno_continue.txt  \                 # pheno file
-SEX,AGE \                                               # covariate list
+COV1,COV2,COV3 \                                               # covariate list
 PHENO \                                                 # target variable
 quantitative                                            # type target variable
 
@@ -207,7 +200,7 @@ quantitative                                            # type target variable
 ../../../toy_data/input_kinship \               # location of the genotype data for kinship
 ../../../toy_data/input_dosage \                # location of the genotype (dosage)
 ../../../toy_data/pheno_binary.txt \            # location of pheno file
-"PHENO ~ AGE + SEX" \                           # model selected
+"PHENO ~ COV1 + COV2 + COV3" \                           # model selected
 quantitative                                    # type of pheno variable (quantitative or binary)
 
 
@@ -230,14 +223,44 @@ quantitative                                    # type of pheno variable (quanti
 ../../../toy_data/input_kinship \               # kinship input
 ../../../toy_data/input_dosage \                # dosage input
 ../../../toy_data/pheno_binary.txt  \           # pheno data
-AGE,SEX, \                                      # list of covariates
-SEX \                                           # binary covariates
+COV1,COV2, \                                    # list all covariates (quantitative + binary)
+COV2 \                                          # only binary covariates
 PHENO \                                         # target variable
 quantitative                                    # type of variable
 
 
 ```
+## Input formats
 
+- **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
+
+  expected label file:
+  
+      input_kinship.bed
+      input_kinship.bim
+      input_kinship.fam
+
+- **Dosage input (PLINK format):** Dosage or genotype data.  
+
+  expected label files:
+
+      input_dosage.bed
+      input_dosage.bim
+      input_dosage.fam
+
+- **Phenotype file:** Must include the following columns:  
+  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`
+  
+  expected pheno file format:
+
+      FID     IID     COV1    COV2    COV3  PHENO
+      FAM001  IND001  0       84      1      0
+      FAM002  IND002  0       85      1      1
+      FAM003  IND003  1       72      0      0
+
+      ...
+
+---
 
 ##  📊 Outputs
 Each pipeline will generate a folder with the following information:
