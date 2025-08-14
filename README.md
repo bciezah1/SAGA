@@ -82,7 +82,18 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 ```bash
 
 git clone https://github.com/bciezah1/SAGA.git
-cd SAGA
+
+cd SAGA/single_marker/tools/bin
+chmod +x *
+
+cd SAGA/single_marker/tools/PLINK
+chmod +x *
+
+cd SAGA/single_marker/tools/GMMAT
+chmod +x *
+
+cd SAGA/single_marker/tools/SAIGE
+chmod +x *
 
 ```
 ---
