@@ -234,8 +234,8 @@ quantitative                                    # type of variable
 
 > ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
 
->  ⚠️ **Important:** Open permit to executables
-       Open permits for *ALL* files on each folder
+>  ⚠️ **Important:** Open permit to executables open permits for **ALL** files on each folder
+
        Tip: To open permits, just go inside the folder mentioned, and run the next command: chmod +x *
 
 
