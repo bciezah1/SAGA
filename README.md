@@ -1,12 +1,12 @@
 # SAGA
 
-- ## Summary
+## 1. Summary
 
 **SAGA** (Simplified Association Genomewide Analyses) is a collection of streamlined pipelines for performing single-marker GWAS using **PLINK**, **GMMAT** and **SAIGE**. It is designed for scientists with limited programming experience who want to analyze genotyped or imputed genetic data with minimal setup.
 
 ---
 
-- ## Background
+## 2. Background
 
 A **Genome-Wide Association Study (GWAS)** is a statistical method used to scan the entire genome for genetic variants—most often single nucleotide polymorphisms (SNPs)—that are associated with specific traits or diseases.  
 By comparing genetic data from many individuals, GWAS can help identify variants linked to:
@@ -45,7 +45,7 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
-- ## Features
+## 3. Features
 
 - **Three integrated GWAS backends:**
   - **PLINK** — fast linear/logistic regression for unrelated individuals.
@@ -62,7 +62,7 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
-- ## Dependencies
+## 4. Dependencies
 
 - **Operating System**
   - UNIX/Linux environment
@@ -77,7 +77,7 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 ---
 
-- ## Installation
+## 5. Installation
 
 ```bash
 
@@ -87,7 +87,7 @@ cd SAGA
 ```
 ---
 
-- ## Repository Structure
+## 6. Repository Structure
 
 ```
 SAGA/
@@ -102,60 +102,7 @@ SAGA/
 ```
 ---
 
-- ##  How to Run it
-
-<!--
-
-SAGE requires **three main input files**. To minimize errors, we recommend renaming your files to match the naming conventions shown in the `toy_data/` folder.
-
-### Input Files:
-
-- **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
-
-  expected label file:
-  
-      input_kinship.bed
-      input_kinship.bim
-      input_kinship.fam
-
-- **Dosage input (PLINK format):** Dosage or genotype data.  
-
-  expected label files:
-
-      input_dosage.bed
-      input_dosage.bim
-      input_dosage.fam
-
-- **Phenotype file:** Must include the following columns:  
-  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`
-  
-  expected pheno file format:
-
-      FID     IID     COV1    COV2    PHENO
-      FAM001  IND001  0       84      0
-      FAM002  IND002  0       85      1
-      FAM003  IND003  1       72      0
-
-      ...
-
-
-> ⚠️ **Warning:** The number of participants and their order **must match exactly** between the PLINK files and the phenotype file.
-
-> ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
-
-> ⚠️ **Important:** You will need to have installed on your linux system:
-        R (Version 4.2.2) which should include the next libraries: GMMAT, CMplot, qqman
-
->  ⚠️ **Important:** Open permit to executables
-       Open permits for all files on the bin directory
-       Open permits for all files inside each pipeline folder GMMAT, SAIGE, and PLINK
-       Tip: To open permits, just go inside the folder mentioned, and run the next command: chmod +x *
-         
----
-
-## 🚀 Pipelines
-
--->
+##  7. How to Run it
 
 SAGA includes three pipelines: The first one using **PLINK**, the second one using **GMMAT**, and third one using **SAIGE**. We recommend running the provided toy data first to verify that everything is working properly before applying the pipeline to your own dataset.
 
@@ -167,7 +114,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 
 1. Get inside the PLINK folder.
 2. Run the command:
-      ./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  SEX,AGE PHENO quantitative
+      ./run_pipeline_plink.sh ../../../toy_data/genotype ../../../toy_data/pheno_continue.txt  COV1,COV2,COV3 PHENO quantitative
 
 
 # Explanation
@@ -180,7 +127,6 @@ PHENO \                                                 # target variable
 quantitative                                            # type target variable
 
 
-
 ```
 
 ### 🔧 GMMAT Pipeline
@@ -191,7 +137,7 @@ quantitative                                            # type target variable
 
 1. Get inside the GMMAT folder.
 2. Run the command:
-      ./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt "PHENO ~ AGE + SEX" quantitative
+      ./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_continue.txt "PHENO ~ COV1 + COV2 + COV3" quantitative
 
 # explanation
 
@@ -200,7 +146,7 @@ quantitative                                            # type target variable
 ../../../toy_data/input_kinship \               # location of the genotype data for kinship
 ../../../toy_data/input_dosage \                # location of the genotype (dosage)
 ../../../toy_data/pheno_binary.txt \            # location of pheno file
-"PHENO ~ COV1 + COV2 + COV3" \                           # model selected
+"PHENO ~ COV1 + COV2 + COV3" \                  # model selected
 quantitative                                    # type of pheno variable (quantitative or binary)
 
 
@@ -217,7 +163,7 @@ quantitative                                    # type of pheno variable (quanti
 2. Get inside the SAIGE folder.
 
 2. Run the command
-     ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt  AGE,SEX, SEX PHENO quantitative
+     ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_continue.txt  COV1,COV2,COV3 COV1 PHENO quantitative
 
 # Explanation
 
@@ -225,8 +171,8 @@ quantitative                                    # type of pheno variable (quanti
 ../../../toy_data/input_kinship \               # kinship input
 ../../../toy_data/input_dosage \                # dosage input
 ../../../toy_data/pheno_binary.txt  \           # pheno data
-COV1,COV2, \                                    # list all covariates (quantitative + binary)
-COV2 \                                          # only binary covariates
+COV1,COV2,COV3 \                                # list all covariates (quantitative + binary)
+COV1 \                                          # only binary covariates
 PHENO \                                         # target variable
 quantitative                                    # type of variable
 
@@ -250,17 +196,37 @@ quantitative                                    # type of variable
       input_dosage.bim
       input_dosage.fam
 
-- **Phenotype file:** Must include the following columns:  
-  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`
+- **Phenotype file:** 
   
-  expected pheno file format:
+  Must include the following columns:  
+  
+  `FID`, `IID`, `PHENO`
 
-      FID     IID     COV1    COV2    COV3  PHENO
-      FAM001  IND001  0       84      1      0
-      FAM002  IND002  0       85      1      1
-      FAM003  IND003  1       72      0      0
+  recommended:
+
+  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`, `COV4`, `COV5` 
+  
+  example pheno file format:
+
+      FID     IID     COV1    COV2    COV3    COV4    COV5    PHENO
+      FAM001  IND001  0       84      9.24046 5.93909 3.06394 4.87729133902262
+      FAM002  IND002  0       85      5.78941 7.40133 7.86926 9.76982251051672
+      FAM003  IND003  1       72      4.3637  3.32195 7.7888  2.35685104797102
+      FAM004  IND004  0       69      1.00887 7.85084 8.35159 4.90705898152053
+      FAM005  IND005  1       77      7.61209 4.96077 4.26298 5.43028469635999
+
 
       ...
+
+
+> ⚠️ **Warning:** The number of participants and their order **MUST match exactly** between the PLINK files and the phenotype file.
+
+> ⚠️ **Important:** Refer to the `toy_data/` folder to verify correct formatting and file naming.
+
+>  ⚠️ **Important:** Open permit to executables
+       Open permits for *ALL* files on each folder
+       Tip: To open permits, just go inside the folder mentioned, and run the next command: chmod +x *
+
 
 ---
 
