@@ -102,7 +102,7 @@ chmod +x *
 
 ```
 SAGA/
-├── SINGLE_MARKER/ # Main pipeline scripts and tools
+├── single_marker/ # Main pipeline scripts and tools
 │ ├── tools/ # Tool-specific scripts and binaries
 │ │ ├── bin/ # Binaries for GWAS tools
 │ │ ├── GMMAT/ # GMMAT workflow scripts
