@@ -256,8 +256,7 @@ FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
 ```
 ### **📌 How They Fit in the Workflow**
 
-![Pipeline Diagram](https://github.com/<username>/<repo>/blob/main/images/my_figure.jpg?raw=true)
-
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/github_diagram.jpg)
 
 > ⚠️ **Warning:** The number of participants and their order **MUST match exactly** between the PLINK files and the phenotype file.
 
