@@ -169,7 +169,7 @@ quantitative                                    # type of pheno variable (quanti
 
 ```bash
 
-1. Download the Saige image from https://github.com/bciezah1/SAGA/releases/download/v1.0/Saige_1.3.0.sif and put the image in the SAIGE folder
+1. Download the Saige image using this link: https://github.com/bciezah1/SAGA/releases/download/v1.0/Saige_1.3.0.sif to get the saige image, and put the image in the SAIGE folder
 
 2. Get inside the SAIGE folder.
 
@@ -189,7 +189,7 @@ quantitative                                    # type of variable
 
 
 ```
-## Input Formats
+## 8. Input Formats
 
 SAGA accepts PLINK binary files (`.bed`, `.bim`, `.fam`) and a phenotype file.  
 Depending on the selected analysis method, two different **genotype inputs** may be required:
@@ -254,6 +254,7 @@ FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
 ...
 
 ```
+### **📌 How They Fit in the Workflow**
 
 
 
@@ -264,6 +265,8 @@ FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
 >  ⚠️ **Important:** Open permit to executables open permits for **ALL** files on each folder
 
        Tip: To open permits, just go inside the folder mentioned, and run the next command: chmod +x *
+
+
 
 
 ---
