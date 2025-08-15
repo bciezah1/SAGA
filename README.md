@@ -196,7 +196,7 @@ Depending on the selected analysis method, two different **genotype inputs** may
 
 ---
 
-### **1. Kinship Input – for Relatedness Correction**  
+### **8.1. Kinship Input – for Relatedness Correction**  
 *(Only required for GMMAT and SAIGE)*  
 
 - **Purpose:** Used **only** to calculate the **kinship matrix** for adjusting relatedness in the population.  
@@ -215,7 +215,7 @@ Depending on the selected analysis method, two different **genotype inputs** may
 
 ---
 
-### **2. Dosage Input – for Association Testing**  
+### **8.2. Dosage Input – for Association Testing**  
 - **Purpose:** Contains the **actual genotype data** used to perform association tests.  
 - **Content:** Full variant set or filtered variants of interest.  
 - **Used by:** All tools (PLINK, GMMAT, SAIGE) depending on the selected method.  
@@ -231,7 +231,7 @@ Depending on the selected analysis method, two different **genotype inputs** may
 
 ---
 
-### **3. Phenotype File**  
+### **8.3. Phenotype File**  
 A tab-delimited file with sample IDs, phenotype values, and optional covariates.
 
 **Required columns:**
@@ -271,7 +271,7 @@ FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
 
 ---
 
-##  📊 Outputs
+## 9.  📊 Outputs
 Each pipeline will generate a folder with the following information:
 
 ✅ GWAS summary statistics (sum_stat.txt)
