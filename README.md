@@ -278,11 +278,11 @@ Each pipeline will generate a folder with the following information:
 
 📈 Manhattan plot (Rect_Manhtn.PVAL.jpg)
 
-![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/diagram.jpg)
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/Rect_Manhtn.PVAL.jpg)
 
 📉 QQ plot (qqplot_with_lambda.jpg)
 
-![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/diagram.jpg)
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/qqplot_with_lambda.jpg)
 
 
 
