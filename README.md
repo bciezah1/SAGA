@@ -271,10 +271,26 @@ FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
 
 ---
 
-## 9.  📊 Outputs
+## 9.  📊 Output Examples
 Each pipeline will generate a folder with the following information:
 
 ✅ GWAS summary statistics (sum_stat.txt)
+
+```bash
+SNP                     CHR     POS     Allele1 Allele2 AF      BETA            SE               PVAL    
+chr1:2917460:G:A        1       2917460 G       A       0.364   0.19181         0.111096        8.425454E-02    
+chr1:3064229:T:C        1       3064229 T       C       0.09    0.154274        0.184408        4.028223E-01    
+chr1:3086968:G:A        1       3086968 G       A       0.169   -0.145269       0.144045        3.132143E-01    
+chr1:3173790:G:A        1       3173790 G       A       0.0425  -0.069691       0.269407        7.958797E-01    
+chr1:3447923:C:T        1       3447923 C       T       0.063   -0.171615       0.222336        4.401907E-01    
+chr1:3906831:C:T        1       3906831 C       T       0.2045  -0.0609915      0.133792        6.484836E-01    
+chr1:3949011:T:C        1       3949011 T       C       0.222   0.121489        0.134684        3.670415E-01    
+chr1:4109988:C:T        1       4109988 C       T       0.2065  -0.151731       0.130497        2.449444E-01    
+chr1:4474909:C:T        1       4474909 C       T       0.184   0.29204         0.13815         3.452163E-02    
+
+...
+
+```
 
 📈 Manhattan plot (Rect_Manhtn.PVAL.jpg)
 
