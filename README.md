@@ -189,45 +189,72 @@ quantitative                                    # type of variable
 
 
 ```
-## Input formats
+## Input Formats
 
-- **Kinship input (PLINK format):** High-quality imputed genotype data for kinship estimation.  
+SAGA accepts PLINK binary files (`.bed`, `.bim`, `.fam`) and a phenotype file.  
+Depending on the selected analysis method, two different **genotype inputs** may be required:
 
-  expected label file:
-  
-      input_kinship.bed
-      input_kinship.bim
-      input_kinship.fam
+---
 
-- **Dosage input (PLINK format):** Dosage or genotype data.  
+### **1. Kinship Input – for Relatedness Correction**  
+*(Only required for GMMAT and SAIGE)*  
 
-  expected label files:
+- **Purpose:** Used **only** to calculate the **kinship matrix** for adjusting relatedness in the population.  
+- **Content:** Can be a pruned set of variants (e.g., LD-pruned SNPs) to make computation faster.
+- **Used by:** GMMAT and SAIGE
+- **Output:** Kinship matrix reused for all chromosomes in the analysis.  
+- **Required files:**
 
-      input_dosage.bed
-      input_dosage.bim
-      input_dosage.fam
+```bash
+    input_kinship.bed
+    input_kinship.bim
+    input_kinship.fam
+```
 
-- **Phenotype file:** 
-  
-  Must include the following columns:  
-  
-  `FID`, `IID`, `PHENO`
+> 💡 This file is **not** used for association testing — only for building the kinship matrix.
 
-  recommended:
+---
 
-  `FID`, `IID`, `PHENO`, `COV1`, `COV2`, `COV3`, `COV4`, `COV5` 
-  
-  example pheno file format:
+### **2. Dosage Input – for Association Testing**  
+- **Purpose:** Contains the **actual genotype data** used to perform association tests.  
+- **Content:** Full variant set or filtered variants of interest.  
+- **Used by:** All tools (PLINK, GMMAT, SAIGE) depending on the selected method.  
+- **Required files:**
 
-      FID     IID     COV1    COV2    COV3    COV4    COV5    PHENO
-      FAM001  IND001  0       84      9.24046 5.93909 3.06394 4.87729133902262
-      FAM002  IND002  0       85      5.78941 7.40133 7.86926 9.76982251051672
-      FAM003  IND003  1       72      4.3637  3.32195 7.7888  2.35685104797102
-      FAM004  IND004  0       69      1.00887 7.85084 8.35159 4.90705898152053
-      FAM005  IND005  1       77      7.61209 4.96077 4.26298 5.43028469635999
+```bash
+    input_dosage.bed
+    input_dosage.bim
+    input_dosage.fam
+```
 
+  > 💡 The kinship input and dosage input **can** be the same file, but for efficiency and quality control, many users use a pruned file for kinship and the full dataset for testing.
 
-      ...
+---
+
+### **3. Phenotype File**  
+A tab-delimited file with sample IDs, phenotype values, and optional covariates.
+
+**Required columns:**
+
+FID  IID  PHENO
+
+**Recommended:**
+
+FID  IID  COV1  COV2  COV3  COV4  COV5  PHENO
+
+**Example:**
+
+```bash
+
+FID      IID      COV1  COV2    COV3      COV4    COV5    PHENO
+FAM001  IND001    0      84    9.24046  5.93909	3.06394	4.87729
+FAM002	IND002    0      85    5.78941	7.40133	7.86926	9.76982
+FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
+
+...
+
+```
+
 
 
 > ⚠️ **Warning:** The number of participants and their order **MUST match exactly** between the PLINK files and the phenotype file.
