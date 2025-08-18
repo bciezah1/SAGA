@@ -123,7 +123,8 @@ sed -i '1d' "$MERGED_FILE"
 #=============================#
 awk '$10 >= 0.01 && $10 < 0.99' "$MERGED_FILE" > temp_body
 echo -e "CHR SNP BP A1 TEST NMISS OR STAT PVAL MAF NCHROBS" > header.txt
-cat header.txt temp_body | sed 's/ /\t/g' > "./sum_stats.txt"
+cat header.txt temp_body | sed 's/ /\t/g' > temporal
+awk '{$1=$1; OFS="\t"}1' temporal >"./sum_stats.txt"
 
 awk '{print $2,$1,$3,$9}' "./sum_stats.txt" | \
   sed 's/ /\t/g' > "./manhattan_input.txt"

@@ -1,5 +1,5 @@
 # how to run it:
- ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_continue.txt COV1,COV2 COV1 PHENO quantitative
+./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_quantitative.txt COV1,COV2 COV1 PHENO quantitative
 
 # Explanation
 

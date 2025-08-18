@@ -1,6 +1,7 @@
 # How to run the pipeline
 
-./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_binary.txt "PHENO ~ COV1 + COV2 " quantitative
+./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_quantitative.txt "PHENO ~ COV1 + COV2 " quantitative
+
 # explanation
 
 ./run_pipeline_gmmat.sh  \			# the main script
