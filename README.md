@@ -68,6 +68,7 @@ This lowers the entry barrier for clinicians, researchers, and students without 
   - UNIX/Linux environment
 
 - **Software**
+  - [Singularity 4.2.1] (https://docs.sylabs.io/guides/latest/user-guide.pdf)
   - [R 4.2.2](https://cran.r-project.org/)
 
 - **R Packages**
