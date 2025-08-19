@@ -97,6 +97,7 @@ singularity run Saige_1.3.0.sif step2_SPAtests.R \
 #      5. Post-Processing     #
 #=============================#
 
+awk '$7 >= -1 && $7 < 1.2' "${OUTPUT_DIR}/saige_output/saige_results.txt" > temp_body
 echo "SNP CHR POS Allele1 Allele2 AF BETA SE PVAL N" > title
 awk '{print $3,$1,$2,$4,$5,$7,$9,$10,$13,$18+$19}' temp_body > temp1
 sed -i '1d' temp1
