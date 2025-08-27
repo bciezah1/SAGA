@@ -205,17 +205,25 @@ Depending on the selected analysis method, two different **genotype inputs** may
 ### **8.1. Kinship Input – for Relatedness Correction**  
 *(Only required for GMMAT and SAIGE)*  
 
-- **Purpose:** Used **only** to calculate the **kinship matrix** for adjusting relatedness in the population.  
-- **Content:** Can be a pruned set of variants (e.g., LD-pruned SNPs) to make computation faster.
-- **Used by:** GMMAT and SAIGE
-- **Output:** Kinship matrix reused for all chromosomes in the analysis.  
-- **Required files:**
+  - **Purpose:** Used **only** to calculate the **kinship matrix** for adjusting relatedness in the population.  
+  - **Content:** Can be a pruned set of variants (e.g., LD-pruned SNPs) to make computation faster.
 
-```bash
-    input_kinship.bed
-    input_kinship.bim
-    input_kinship.fam
-```
+    - **GMMAT**
+      This pipeline generates a dense genetic relationship matrix (GRM) using GEMMA
+      
+    - **SAIGE**
+      This pipeline will generate a sparse GRM, using SAIGE
+      
+
+    **Example:**
+    
+    ```bash
+
+        example
+        input_kinship.bed
+        input_kinship.bim
+        input_kinship.fam
+    ```
 
 > 💡 This file is **not** used for association testing — only for building the kinship matrix.
 
@@ -226,6 +234,8 @@ Depending on the selected analysis method, two different **genotype inputs** may
 - **Content:** Full variant set or filtered variants of interest.  
 - **Used by:** All tools (PLINK, GMMAT, SAIGE) depending on the selected method.  
 - **Required files:**
+  
+**Example:**
 
 ```bash
     input_dosage.bed
