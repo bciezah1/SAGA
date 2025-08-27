@@ -217,8 +217,8 @@ Depending on the selected analysis method, two different **genotype inputs** may
 
     **Example:**
     
+    
     ```bash
-
         example
         input_kinship.bed
         input_kinship.bim
