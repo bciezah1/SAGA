@@ -1,13 +1,14 @@
 # How to run the pipeline
 
-./run_pipeline_plink.sh ../../../toy_data/input_kinship ../../../toy_data/pheno_quantitative.txt  COV1,COV2,COV3,COV4,COV5 PHENO quantitative
+./run_pipeline_plink.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt COV1,COV2,PC1,PC2,PC3 PHENO  binary  myoutputs
 
 
 # Explanation
 
 ./run_pipeline_plink.sh \				# main script
-../../../toy_data/genotype \				# genotype data in plink format	
-../../../toy_data/pheno_continue.txt  \			# pheno file	
-COV1,COV2,COV3,COV4,COV5 \				# covariate list (up to 5)
+../../../toy_data/geno  \					# genotype data in plink format	
+../../../toy_data/pheno_binary.txt  \				# pheno file	
+COV1,COV2,PC1,PC2,PC3 \					# covariate list (up to 5)
 PHENO \							# target variable
-quantitative						# type target variable
+binary							# type target variable
+myoutputs						# name of your folder where results will be located

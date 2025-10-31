@@ -1,79 +1,51 @@
-
-# load Packages:
+#!/bin/bash
 module load R/4.2.2
-
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 model="model1"
 
-#echo "==> Concatenating files..."
-#for i in {1..22}; do
-#  tail -n +2 mega_scores_chr"$i"_kinship_09_23_2024_5PCs_"$model".txt
-#done > manhattan_plot_input_sorted.txt
+MANHATTAN_INPUT="$OUTPUT_DIR/manhattan_input.txt"
+SORTED_OUTPUT="$OUTPUT_DIR/manhattan_plot_input_sorted_$model.txt"
+SUM_STATS="$OUTPUT_DIR/sum_stats.txt"
 
-mv mega_scores_chr1_kinship_09_23_2024_5PCs_"$model".txt manhattan_plot_input_sorted.txt
+awk '{print $2,$1,$4,$11}' "$OUTPUT_DIR/mega_scores_chr1_kinship_09_23_2024_5PCs_$model.txt" | sed 's/ /\t/g' > temp1
+sed -i '1d' temp1
+echo -e "SNP\tCHR\tBP\tPVAL" > "$MANHATTAN_INPUT"
+cat temp1 >> "$MANHATTAN_INPUT"
+rm temp1
+mv "$OUTPUT_DIR/mega_scores_chr1_kinship_09_23_2024_5PCs_$model.txt" "$OUTPUT_DIR/mega_scores_chr1_kinship_09_23_2024_5PCs_sorted_$model.txt"
 
-echo "==> Calculating beta and SE..."
-awk -v OFS="\t" '
-  BEGIN { FS=OFS }
-  {
-    beta = ($10 + 0 != 0) ? $9 / $10 : "NA"
-    se   = ($10 + 0 != 0) ? 1 / sqrt($10) : "NA"
-    split($2, loc, ":")
-    print loc[1], loc[2], $0, beta, se
-  }
-' manhattan_plot_input_sorted.txt > temp_full.txt
 
-echo "==> Filtering by allele frequency..."
-awk -F'\t' '$10 >= 0.01 && $10 < 0.99' temp_full.txt > temp_filtered.txt
+awk -v OFS="\t" '{
+  beta = ($10 + 0 !=0)? $9/$10 : "NA"
+  se   = ($10 + 0 !=0)? 1/sqrt($10) : "NA"
+  split($2,loc,":")
+  print loc[1], loc[2], $0, beta, se
+}' "$OUTPUT_DIR/mega_scores_chr1_kinship_09_23_2024_5PCs_sorted_$model.txt" > "$OUTPUT_DIR/temp_full.txt"
 
-# Add header
-echo -e "CHR\tBP\tCHR_full\tSNP\tcM\tPOS\tA1\tA2\tN\tAF\tSCORE\tVAR\tPVAL\tBETA\tSE" > manhattan_plot_input_sorted_"$model".txt
-cat temp_filtered.txt >> manhattan_plot_input_sorted_"$model".txt
+awk -F'\t' '$10 >= 0.01 && $10 < 0.99' "$OUTPUT_DIR/temp_full.txt" > "$OUTPUT_DIR/temp_filtered.txt"
 
-echo "==> Creating input for plotting..."
-awk -F'\t' '$14 != "NA" { print $4, $1, $2, $13 }' manhattan_plot_input_sorted_"$model".txt | tr ' ' '\t' > manhattan_plot_input_ready.txt
+echo -e "CHR\tBP\tCHR_full\tSNP\tcM\tBP\tA1\tA2\tN\tAF\tSCORE\tVAR\tPVAL\tBETA\tSE" > "$SORTED_OUTPUT"
+cat "$OUTPUT_DIR/temp_filtered.txt" >> "$SORTED_OUTPUT"
 
-echo "==> Loading R and generating plots..."
 
-# === Inline R for Manhattan and QQ plot generation ===
-Rscript - <<'EOF'
-#################################
-#   By Basilio Cieza Huaman
-#################################
+export OUTPUT_DIR
 
-# Manhattan Plot
-library(CMplot)
-data <- read.table("manhattan_plot_input_ready.txt", header = TRUE, sep = "\t")
-CMplot(data,
-       plot.type = 'm',
-       cex = 1,
-       band = 1,
-       ylim = c(0, 15),
-       col = c("grey30", "grey60"),
-       threshold = c(5e-8),
-       threshold.col = c("red"),
-       threshold.lty = c(5),
-       threshold.lwd = c(2),
-       amplify = FALSE,
-       LOG10 = TRUE)
+module load R/4.2.2
 
-# QQ Plot with Lambda
-library(qqman)
-p_values <- data$PVAL
-observed_chisq <- qchisq(1 - p_values, df = 1)
-lambda <- median(observed_chisq) / 0.4549
-print(paste("Lambda:", round(lambda, 3)))
+echo "--------------"
+echo " here start the R scripts "
+echo "--------------"
+pwd
+echo "$SCRIPT_DIR/create_manhattan.R"
+ls
 
-jpeg("qqplot_with_lambda.jpg", width = 800, height = 800, res = 300)
-qq(p_values, main = "QQ Plot of P-values")
-text(x = 0.3, y = max(-log10(p_values)) - 0.5,
-     labels = paste0("Lambda = ", round(lambda, 3)),
-     pos = 4, col = "blue", cex = 0.4)
-dev.off()
-EOF
+Rscript "$SCRIPT_DIR/create_manhattan.R"  "$OUTPUT_DIR/manhattan_input.txt"
+Rscript "$SCRIPT_DIR/create_qq.plot.R"  "$OUTPUT_DIR/manhattan_input.txt"
+Rscript "$SCRIPT_DIR/create_circular_manhattan.R"  "$OUTPUT_DIR/manhattan_input.txt"
+Rscript "$SCRIPT_DIR/create_density_plot.R"  "$OUTPUT_DIR/manhattan_input.txt"
 
-echo "==> Cleaning up temporary files..."
-rm temp_*.txt manhattan_plot_input_sorted.txt
-mv manhattan_plot_input_sorted_"$model".txt sum_stats.txt
+rm "$OUTPUT_DIR"/temp_*.txt
+mv "$SORTED_OUTPUT" "$SUM_STATS"
+echo "Post-processing completed in $OUTPUT_DIR"
 
-echo "Post-processing completed successfully."

@@ -1,1 +1,0 @@
-rm -r output runtime_log.txt

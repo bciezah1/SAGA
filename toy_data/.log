@@ -1,0 +1,22 @@
+PLINK v1.90b6.26 64-bit (2 Apr 2022)
+Options in effect:
+  --bfile temp_snps_dataset
+  --freq
+  --out 
+
+Hostname: hgrclogin01
+Working directory: /mnt/vast/hpc/gtosto_lab/GT_ADMIX/Basilio_08_19_2022/GWAS/pipelines/pipeline/test_09_23_2025/SAGA/single_marker/tools/SAIGE/toy_data
+Start time: Sun Oct 12 21:40:54 2025
+
+Random number seed: 1760319654
+64283 MB RAM detected; reserving 32141 MB for main workspace.
+215580 variants loaded from .bim file.
+730 people (0 males, 0 females, 730 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to .nosex .
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 730 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.999589.
+--freq: Allele frequencies (founders only) written to .frq .
+
+End time: Sun Oct 12 21:40:55 2025
