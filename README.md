@@ -127,17 +127,19 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 1. Get inside the PLINK folder.
 2. Run the command:
 
-    ./run_pipeline_plink.sh ../../../toy_data/input_kinship ../../../toy_data/pheno_quantitative.txt  COV1,COV2,COV3,COV4,COV5 PHENO quantitative
-    
-    
-    # Explanation
-    
-    ./run_pipeline_plink.sh \                               # main script
-    ../../../toy_data/input_dosage \                            # genotype data in plink format
-    ../../../toy_data/pheno_quantitative.txt  \                 # pheno file
-    COV1,COV2,COV3,COV4,COV5 \                              # covariate list (up to 5)
-    PHENO \                                                 # target variable
-    quantitative                                            # type target variable
+        ./run_pipeline_plink.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt COV1,COV2,PC1,PC2,PC3 PHENO  binary  myoutputs
+
+
+        # Explanation
+
+        ./run_pipeline_plink.sh \                               # main script
+        ../../../toy_data/geno  \                                       # genotype data in plink format
+        ../../../toy_data/pheno_binary.txt  \                           # pheno file
+        COV1,COV2,PC1,PC2,PC3 \                                 # covariate list (up to 5)
+        PHENO \                                                 # target variable
+        binary                                                  # type target variable
+        myoutputs                                               # name of your folder where results will be located
+
     
 
 
@@ -152,17 +154,15 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 1. Get inside the GMMAT folder.
 2. Run the command:
 
-    ./run_pipeline_gmmat.sh ./ ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_quantitative.txt "PHENO ~ COV1 + COV2 " quantitative
-    
-    # explanation
-    
-    ./run_pipeline_gmmat.sh  \                      # the main script
-    ./ \                                            # location of the working directory
-    ../../../toy_data/input_kinship \               # location of the genotype data for kinship
-    ../../../toy_data/input_dosage \                # location of the genotype (dosage)
-    ../../../toy_data/pheno_quantitative.txt \            # location of pheno file
-    "PHENO ~ COV1 + COV2" \                         # model selected
-    quantitative                                    # type of pheno variable (quantitative or binary)
+      ./run_pipeline_gmmat.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt  "PHENO ~ COV1 + COV2" binary myoutput
+      
+      # explanation
+      ./run_pipeline_gmmat.sh  \                      # the main script
+      ../../../toy_data/geno \                                        # location of the geno
+      ../../../toy_data/pheno_binary.txt \                    # location of pheno file
+      "PHENO ~ COV1 + COV2" \                         # model selected
+      binary \                                        # type of pheno variable (quantitative or binary)
+      myoutput                                        # location of my output
 
 
 ```
@@ -179,19 +179,18 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 
 3. Run the command
 
-    ./run_pipeline_saige.sh ../../../toy_data/input_kinship ../../../toy_data/input_dosage ../../../toy_data/pheno_quantitative.txt COV1,COV2 COV1 PHENO quantitative
-    
-    # Explanation
-    
-    ./run_pipeline_saige.sh \                       # main script
-    ../../../toy_data/input_kinship \               # kinship input
-    ../../../toy_data/input_dosage \                # dosage input
-    ../../../toy_data/pheno_quantitative.txt  \     # pheno data
-    COV1,COV2, \                                    # list of covariates
-    COV1 \                                          # binary covariates
-    PHENO \                                         # target variable
-    quantitative                                    # type of variable
-
+      ./run_pipeline_saige.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt   COV1,COV2,PC1,PC2,PC3,PC4,PC5  COV1 PHENO binary myoutput
+      
+      # Explanation
+      
+      ./run_pipeline_saige.sh \                       # main script
+      ../../../toy_data/geno \                                # geno input
+      ../../../toy_data/pheno_binary.txt        \             # pheno data
+      COV1,COV2,PC1,PC2,PC3,PC4,PC5 \                 # list of covariates
+      COV1 \                                          # binary covariates
+      PHENO \                                         # target variable
+      binary \                                        # type of variable
+      myoutput                                        # working directory
 
 
 ```
