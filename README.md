@@ -196,57 +196,26 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 ```
 ## 8. Input Formats
 
-SAGA accepts PLINK binary files (`.bed`, `.bim`, `.fam`) and a phenotype file.  
-Depending on the selected analysis method, two different **genotype inputs** may be required:
+SAGA only need *two* inputs, (1) genetic data in plink format (`.bed`, `.bim`, `.fam`), and a (2) phenotype file.  
 
 ---
 
-### **8.1. Kinship Input – for Relatedness Correction**  
-*(Only required for GMMAT and SAIGE)*  
-
-  - **Purpose:** Used **only** to calculate the **kinship matrix** for adjusting relatedness in the population.  
-  - **Content:** Can be a pruned set of variants (e.g., LD-pruned SNPs) to make computation faster.
-
-    - **GMMAT**
-      This pipeline generates a dense genetic relationship matrix (GRM) using GEMMA
-      
-    - **SAIGE**
-      This pipeline will generate a sparse GRM, using SAIGE
-      
-
-    **Example:**
-    
-    
-    ```bash
-        example
-        input_kinship.bed
-        input_kinship.bim
-        input_kinship.fam
-    ```
-
-> 💡 This file is **not** used for association testing — only for building the kinship matrix.
-
----
-
-### **8.2. Dosage Input – for Association Testing**  
-- **Purpose:** Contains the **actual genotype data** used to perform association tests.  
-- **Content:** Full variant set or filtered variants of interest.  
-- **Used by:** All tools (PLINK, GMMAT, SAIGE) depending on the selected method.  
-- **Required files:**
+### **8.1. Genetic data**  
+In plinnk format
   
 **Example:**
 
 ```bash
-    input_dosage.bed
-    input_dosage.bim
-    input_dosage.fam
+    geno.bed
+    geno.bim
+    geno.fam
 ```
 
-  > 💡 The kinship input and dosage input **can** be the same file, but for efficiency and quality control, many users use a pruned file for kinship and the full dataset for testing.
+  > 💡 You can input your raw genetic data, and SAGA will take care of the QC steps.
 
 ---
 
-### **8.3. Phenotype File**  
+### **8.2. Phenotype File**  
 A tab-delimited file with sample IDs, phenotype values, and optional covariates.
 
 **Required columns:**
@@ -255,16 +224,17 @@ FID  IID  PHENO
 
 **Recommended:**
 
-FID  IID  COV1  COV2  COV3  COV4  COV5  PHENO
+FID  IID  COV1  COV2  PHENO
 
 **Example:**
 
 ```bash
 
-FID      IID      COV1  COV2    COV3      COV4    COV5    PHENO
-FAM001  IND001    0      84    9.24046  5.93909	3.06394	4.87729
-FAM002	IND002    0      85    5.78941	7.40133	7.86926	9.76982
-FAM003	IND003    1      72    4.36370	3.32195	7.78880	2.35685
+FID	    IID	    COV1	COV2	PHENO
+FAM001	IND001	0	    84	    1
+FAM002	IND002	0	    85	    0
+FAM003	IND003	1	    72	    1
+
 
 ...
 
