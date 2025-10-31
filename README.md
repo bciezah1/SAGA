@@ -308,13 +308,21 @@ chr1:4474909:C:T        1       4474909 C       T       0.184   0.29204         
 
 ```
 
-📈 Manhattan plot (Rect_Manhtn.PVAL.jpg)
+📈 Manhattan plot 
 
-![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/Rect_Manhtn.PVAL.jpg)
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/rectangular_manhattan_plot.jpg)
 
-📉 QQ plot (qqplot_with_lambda.jpg)
+📉 QQ plot 
 
-![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/qqplot_with_lambda.jpg)
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/Q_Q_plot.jpg)
+
+📈 SNP density plot
+
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/SNP_density_plot.jpg)
+
+📉 Circular Manhattan plot
+
+![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/circular_manhattan_plot.jpg)
 
 
 
