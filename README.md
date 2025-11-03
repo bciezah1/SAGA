@@ -133,8 +133,8 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
         # Explanation
 
         ./run_pipeline_plink.sh \                               # main script
-        ../../../toy_data/geno  \                                       # genotype data in plink format
-        ../../../toy_data/pheno_binary.txt  \                           # pheno file
+        full_path_to_geno/geno  \                               # genotype data in plink format
+        full_path_to_pheno/pheno_binary.txt  \                  # pheno file
         COV1,COV2,PC1,PC2,PC3 \                                 # covariate list (up to 5)
         PHENO \                                                 # target variable
         binary                                                  # type target variable
@@ -158,8 +158,8 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
       
       # explanation
       ./run_pipeline_gmmat.sh  \                      # the main script
-      ../../../toy_data/geno \                                        # location of the geno
-      ../../../toy_data/pheno_binary.txt \                    # location of pheno file
+      full_path_to_geno/geno  \                       # genotype data in plink format
+      full_path_to_pheno/pheno_binary.txt  \          # pheno file
       "PHENO ~ COV1 + COV2" \                         # model selected
       binary \                                        # type of pheno variable (quantitative or binary)
       myoutput                                        # location of my output
@@ -184,8 +184,8 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
       # Explanation
       
       ./run_pipeline_saige.sh \                       # main script
-      ../../../toy_data/geno \                                # geno input
-      ../../../toy_data/pheno_binary.txt        \             # pheno data
+      full_path_to_geno/geno  \                       # genotype data in plink format
+      full_path_to_pheno/pheno_binary.txt  \          # pheno file
       COV1,COV2,PC1,PC2,PC3,PC4,PC5 \                 # list of covariates
       COV1 \                                          # binary covariates
       PHENO \                                         # target variable
