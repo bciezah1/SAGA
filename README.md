@@ -293,5 +293,15 @@ chr1:4474909:C:T        1       4474909 C       T       0.184   0.29204         
 
 ![Pipeline Diagram](https://github.com/bciezah1/SAGA/blob/main/images/circular_manhattan_plot.jpg)
 
+📌 Citation
+
+If you use SAGA in your research, please cite the following preprint:
+
+Cieza B, Pandey N, Ruhela V, Ali S, Tosto G.
+SAGA (Simplified Association Genomewide Analyses): 
+a user-friendly pipeline to democratize genome-wide association studies.
+bioRxiv 2025.08.25.672146; doi: https://doi.org/10.1101/2025.08.25.672146
+
+
 
 
