@@ -154,7 +154,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 1. Get inside the GMMAT folder.
 2. Run the command:
 
-      ./run_pipeline_gmmat.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt  "PHENO ~ COV1 + COV2 + COV3 + PC1 + PC2 + PC3"  binary  myoutput
+      ./run_pipeline_gmmat.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt  "PHENO ~ COV1 + COV2 + PC1 + PC2 + PC3"  binary  myoutput
       
       # explanation
       ./run_pipeline_gmmat.sh  \                      # the main script
@@ -179,7 +179,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 
 3. Run the command
 
-      ./run_pipeline_saige.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt   COV1,COV2,PC1,PC2,PC3  COV1  PHENO  binary  myoutput
+      ./run_pipeline_saige.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt   COV1,COV2,PC1,PC2  COV1  PHENO  binary  myoutput
       
       # Explanation
       
