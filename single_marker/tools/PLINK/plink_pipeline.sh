@@ -5,7 +5,7 @@
 
 set -euo pipefail
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
-module load R/4.2.2
+module load R/4.5.2
 
 #===========================================#
 #           INPUT ARGUMENTS                 #

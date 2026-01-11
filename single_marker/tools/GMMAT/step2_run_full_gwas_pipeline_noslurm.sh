@@ -1,5 +1,5 @@
 #!/bin/bash
-module load R/4.2.2
+#module load R/4.5.2
 set -euo pipefail
 
 if [ $# -lt 1 ]; then
