@@ -69,12 +69,12 @@ This lowers the entry barrier for clinicians, researchers, and students without 
 
 - **Software**
   - [Singularity 4.2.1] (https://docs.sylabs.io/guides/latest/user-guide.pdf)
-  - [R 4.2.2](https://cran.r-project.org/)
+  - [R 4.5.2](https://cran.r-project.org/)
 
 - **R Packages**
   - [GMMAT](https://cran.r-project.org/web/packages/GMMAT/)
   - [ggplot2](https://ggplot2.tidyverse.org/)
-  - [qqman](https://cran.r-project.org/web/packages/qqman/)
+  - [CMplot](https://cran.r-project.org/web/packages/CMplot/)
 
 ---
 
