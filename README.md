@@ -179,7 +179,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
 
 3. Run the command
 
-      ./run_pipeline_saige.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt   COV1,COV2,PC1,PC2  COV1  PHENO  binary  myoutput
+      ./run_pipeline_saige.sh  full_path_to_geno/geno  full_path_to_pheno/pheno_binary.txt   COV1,COV2,PC1,PC2,PC3  COV1  PHENO  binary  myoutput
       
       # Explanation
       
@@ -187,7 +187,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
       full_path_to_geno/geno  \                       # genotype data in plink format
       full_path_to_pheno/pheno_binary.txt  \          # pheno file
       COV1,COV2,PC1,PC2,PC3,PC4,PC5 \                 # list of covariates
-      COV1 \                                          # binary covariates
+      COV1 \                                          # binary covariates required by saige
       PHENO \                                         # target variable
       binary \                                        # type of variable
       myoutput                                        # working directory
