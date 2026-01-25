@@ -1,6 +1,7 @@
 #!/bin/bash
-module load R/4.2.2
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
+#SCRIPT_DIR=$( "$(realpath "$0")")
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+
 
 model="model1"
 
@@ -31,7 +32,6 @@ cat "$OUTPUT_DIR/temp_filtered.txt" >> "$SORTED_OUTPUT"
 
 export OUTPUT_DIR
 
-module load R/4.2.2
 
 echo "--------------"
 echo " here start the R scripts "

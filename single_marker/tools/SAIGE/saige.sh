@@ -33,7 +33,7 @@ cd ${WORKING_DIR}
 OUTPUT_DIR="./"
 mkdir -p ${OUTPUT_DIR}/{sparseGRM,saige_output,summary_plots,logs}
 
-"$SCRIPT_DIR/qc.sh" "../$GENO_INPUT" "../$GENO_INPUT"
+"$SCRIPT_DIR/qc.sh" "$GENO_INPUT" "$GENO_INPUT"
 
 
 echo "Phenotype column: $DIAG_INPUT"
@@ -55,7 +55,7 @@ GENO_INPUT="QCed.assoc"
 awk '{print $3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${PCA_OUT}.eigenvec > pcs.tmp
 echo -e "PC1 PC2 PC3 PC4 PC5 PC6 PC7 PC8 PC9 PC10" > pc_title.tmp
 cat pc_title.tmp pcs.tmp > pc_ready.tmp
-paste "../$INPUT_PHENO" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
+paste "$INPUT_PHENO" pc_ready.tmp | sed 's/ /\t/g' > "$PHENO_WITH_PCS"
 sed -i '1s/ //g' "$PHENO_WITH_PCS"
 
 #=============================#

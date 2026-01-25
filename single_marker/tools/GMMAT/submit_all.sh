@@ -43,5 +43,5 @@ cd ../
 mv manhattan_input.txt pheno_with_pcs.txt sum_stats.txt ./output/tables
 cd ../
 mv *jpg "$OUTPUT_DIR/output/plots"
-cd ../
-#rm -r output
+
+rm -r output
