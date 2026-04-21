@@ -1,12 +1,15 @@
 # How to run the pipeline
 
-./run_pipeline_gmmat.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt  "PHENO ~ COV1 + COV2" binary myoutput
+./run_pipeline_gmmat.sh \
+full_path_to_geno_data/geno \
+full_path_to_pheno_data/pheno_binary.txt \
+"PHENO ~ COV1 + COV2 + PC1 + PC2 + PC3" binary myoutput
 
 # explanation
 ./run_pipeline_gmmat.sh  \			# the main script
-../../../toy_data/geno \					# location of the geno
-../../../toy_data/pheno_binary.txt \			# location of pheno file
-"PHENO ~ COV1 + COV2" \				# model selected
+full_path_to_geno_data/geno \			# location of the geno
+full_path_to_pheno_data/pheno_binary.txt \	# location of pheno file
+"PHENO ~ COV1 + COV2 + PC1 + PC2 + PC3" \	# model selected
 binary \					# type of pheno variable (quantitative or binary)
 myoutput					# location of my output	
 

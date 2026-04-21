@@ -1,12 +1,14 @@
 # how to run it:
-./run_pipeline_saige.sh ../../../toy_data/geno ../../../toy_data/pheno_binary.txt   COV1,COV2,PC1,PC2,PC3,PC4,PC5  COV1 PHENO binary myoutput
-
+./run_pipeline_saige.sh \
+full_path_to_geno_data/toy_data/geno \
+full_path_to_pheno_data/pheno_binary.txt  \
+COV1,COV2,PC1,PC2,PC3  COV1 PHENO binary myoutput
 # Explanation
 
 ./run_pipeline_saige.sh \			# main script
-../../../toy_data/geno \				# geno input
-../../../toy_data/pheno_binary.txt	  \		# pheno data	
-COV1,COV2,PC1,PC2,PC3,PC4,PC5 \			# list of covariates
+full_path_to_geno_data/toy_data/geno \		# geno input
+full_path_to_pheno_data/pheno_binary.txt \	# pheno data	
+COV1,COV2,PC1,PC2,PC3 \				# list of covariates
 COV1 \						# binary covariates
 PHENO \						# target variable
 binary \					# type of variable

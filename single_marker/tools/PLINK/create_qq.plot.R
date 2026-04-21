@@ -1,45 +1,51 @@
 #!/usr/bin/env Rscript
 
-# ======== Load necessary libraries ========
 suppressMessages({
   library(CMplot)
 })
 
-# ======== Parse command-line arguments ========
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 1) {
-  stop("Usage: Rscript create_qq_plot.R <input_file> [output_prefix]", call. = FALSE)
+  stop("Usage: Rscript create_qq.plot.R <input_file> [output_dir]", call. = FALSE)
 }
 
 input_file <- args[1]
-output_prefix <- ifelse(length(args) >= 2, args[2], tools::file_path_sans_ext(basename(input_file)))
+output_dir <- ifelse(length(args) >= 2, args[2], getwd())
 
-# ======== Load data ========
+if (!dir.exists(output_dir)) {
+  dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+}
+
+prefix <- tools::file_path_sans_ext(basename(input_file))
+
 cat("Reading data from:", input_file, "\n")
+cat("Writing plots to:", output_dir, "\n")
+
 data <- read.table(input_file, header = TRUE, sep = "\t")
 
-if (!"PVAL" %in% names(data)) stop("Input file must contain column: PVAL", call. = FALSE)
+if (!"PVAL" %in% names(data)) {
+  stop("Input file must contain column: PVAL", call. = FALSE)
+}
 
-# Remove bad P-values
 data <- data[!is.na(data$PVAL) & data$PVAL > 0 & data$PVAL <= 1, ]
 
-# ======== Compute ?GC ========
 chisq <- qchisq(1 - data$PVAL, 1)
 lambda_gc <- round(median(chisq, na.rm = TRUE) / qchisq(0.5, 1), 3)
 cat("Lambda GC =", lambda_gc, "\n")
 
-# ======== Create QQ plot and add ? ========
-output_file <- paste0(output_prefix, "_qq_lambda.jpg")
+output_file <- file.path(output_dir, paste0(prefix, "_qq_lambda.jpg"))
 cat("Creating QQ plot:", output_file, "\n")
+data <- data[, c("SNP", "CHR", "BP", "PVAL")]
+colnames(data) <- c("SNP", "CHR", "BP", "P")
 
 jpeg(output_file, width = 1500, height = 1500, res = 300)
 
 CMplot(
   data,
   plot.type = "q",
-  col=c("darkorchid"),
+  col = c("darkorchid"),
   box = FALSE,
-  file.output = FALSE,     # Draw directly to this device
+  file.output = FALSE,
   conf.int = TRUE,
   conf.int.col = NULL,
   threshold.col = "red",
@@ -48,12 +54,15 @@ CMplot(
   main = "QQ Plot of GWAS Results"
 )
 
-# Add ?GC text in plot region (top-left corner)
-usr <- par("usr")  # plot limits
-text(x = usr[1] + 0.1*(usr[2]-usr[1]),
-     y = usr[4] - 0.1*(usr[4]-usr[3]),
-     labels = bquote(lambda[GC] == .(lambda_gc)),
-     cex = 1.4, col = "black", adj = 0)
+usr <- par("usr")
+text(
+  x = usr[1] + 0.1 * (usr[2] - usr[1]),
+  y = usr[4] - 0.1 * (usr[4] - usr[3]),
+  labels = bquote(lambda[GC] == .(lambda_gc)),
+  cex = 1.4,
+  col = "black",
+  adj = 0
+)
 
 dev.off()
 
