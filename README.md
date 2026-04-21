@@ -160,7 +160,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
       ./run_pipeline_gmmat.sh  \                      # the main script
       full_path_to_geno/geno  \                       # genotype data in plink format
       full_path_to_pheno/pheno_binary.txt  \          # pheno file
-      "PHENO ~ COV1 + COV2" \                         # model selected
+      "PHENO ~ COV1 + COV2 + PC1 + PC2 + PC3" \       # model selected (up to 10 PCs)
       binary \                                        # type of pheno variable (quantitative or binary)
       myoutput                                        # location of my output
 
