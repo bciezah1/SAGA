@@ -69,10 +69,6 @@ rm -f "$OUTPUT_DIR"/kinship_step1.log "$OUTPUT_DIR"/kinship_step1.nosex
 
 rm -f "$OUTPUT_DIR"/pruned_snps.prune.in "$OUTPUT_DIR"/pruned_snps.prune.out "$OUTPUT_DIR"/pruned_snps.log
 
-rm -f "$OUTPUT_DIR"/mypc.eigenvec "$OUTPUT_DIR"/mypc.eigenval "$OUTPUT_DIR"/mypc.log
-rm -f "$OUTPUT_DIR"/mykinship.log.txt "$OUTPUT_DIR"/mykinship.cXX.txt
-rm -f "$OUTPUT_DIR"/mega_scores_chr1_model1_raw.txt
-
 rm -f "$OUTPUT_DIR"/*.tmp
 rm -f "$OUTPUT_DIR"/pheno_for_kinship.txt
 rm -f "$OUTPUT_DIR"/pheno_fid_kinship.txt

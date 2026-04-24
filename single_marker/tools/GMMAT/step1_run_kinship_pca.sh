@@ -267,29 +267,37 @@ NR == 1 {
 }
 ' "$PHENO_FILTERED" > "$PHENO_GEMMA"
 
-echo ">> Computing kinship matrix with GEMMA"
-(
-    cd "$OUTPUT_DIR"
-    "$BIN_DIR/gemma-0.98.5" \
-        -bfile "QCed.kinship" \
-        -gk 1 \
-        -p "$(basename "$PHENO_GEMMA")" \
-        -maf 0.05 \
-        -o "$KINSHIP_OUT_PREFIX"
-)
+if [ -f "$OUTPUT_DIR/mykinship.cXX.txt" ]; then
+    echo ">> Kinship matrix already exists. Skipping GEMMA kinship computation."
+else
+    echo ">> Computing kinship matrix with GEMMA"
+    (
+        cd "$OUTPUT_DIR"
+        "$BIN_DIR/gemma-0.98.5" \
+            -bfile "QCed.kinship" \
+            -gk 1 \
+            -p "$(basename "$PHENO_GEMMA")" \
+            -maf 0.05 \
+            -o "$KINSHIP_OUT_PREFIX"
+    )
 
-if [ -d "$OUTPUT_DIR/output" ]; then
-    shopt -s nullglob
-    gemma_files=("$OUTPUT_DIR"/output/*)
-    if [ "${#gemma_files[@]}" -gt 0 ]; then
-        mv "${gemma_files[@]}" "$OUTPUT_DIR/"
+    if [ -d "$OUTPUT_DIR/output" ]; then
+        shopt -s nullglob
+        gemma_files=("$OUTPUT_DIR"/output/*)
+        if [ "${#gemma_files[@]}" -gt 0 ]; then
+            mv "${gemma_files[@]}" "$OUTPUT_DIR/"
+        fi
+        shopt -u nullglob
+        rmdir "$OUTPUT_DIR/output" 2>/dev/null || true
     fi
-    shopt -u nullglob
-    rmdir "$OUTPUT_DIR/output" 2>/dev/null || true
 fi
 
-echo ">> Computing top 10 PCs with PLINK"
-"$BIN_DIR/plink" --bfile "$KINSHIP_BFILE" --pca 10 --out "$PCA_OUT"
+if [ -f "${PCA_OUT}.eigenvec" ] && [ -f "${PCA_OUT}.eigenval" ]; then
+    echo ">> PCA files already exist. Skipping PLINK PCA."
+else
+    echo ">> Computing top 10 PCs with PLINK"
+    "$BIN_DIR/plink" --bfile "$KINSHIP_BFILE" --pca 10 --out "$PCA_OUT"
+fi
 
 if [ ! -f "${PCA_OUT}.eigenvec" ]; then
     echo "ERROR: expected PCA output not found: ${PCA_OUT}.eigenvec"

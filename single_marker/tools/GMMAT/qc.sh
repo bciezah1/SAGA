@@ -15,11 +15,19 @@ OUTPUT_DIR="$3"
 
 mkdir -p "$OUTPUT_DIR"
 
-"$BIN_DIR/plink" --bfile "$input_gwas" --geno 0.02 --make-bed --out "$OUTPUT_DIR/assoc_step1"
-"$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step1" --mind 0.02 --make-bed --out "$OUTPUT_DIR/assoc_step2"
-"$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step2" --maf 0.01 --make-bed --out "$OUTPUT_DIR/assoc_step3"
-"$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step3" --hwe 1e-6 --make-bed --out "$OUTPUT_DIR/QCed.assoc"
+if [ -f "$OUTPUT_DIR/QCed.assoc.bed" ] && [ -f "$OUTPUT_DIR/QCed.assoc.bim" ] && [ -f "$OUTPUT_DIR/QCed.assoc.fam" ]; then
+    echo ">> QCed.assoc already exists. Skipping association QC."
+else
+    "$BIN_DIR/plink" --bfile "$input_gwas" --geno 0.02 --make-bed --out "$OUTPUT_DIR/assoc_step1"
+    "$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step1" --mind 0.02 --make-bed --out "$OUTPUT_DIR/assoc_step2"
+    "$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step2" --maf 0.01 --make-bed --out "$OUTPUT_DIR/assoc_step3"
+    "$BIN_DIR/plink" --bfile "$OUTPUT_DIR/assoc_step3" --hwe 1e-6 --make-bed --out "$OUTPUT_DIR/QCed.assoc"
+fi
 
-"$BIN_DIR/plink" --bfile "$input_kinship" --geno 0.05 --maf 0.05 --mind 0.15 --hwe 1e-6 --make-bed --out "$OUTPUT_DIR/kinship_step1"
-"$BIN_DIR/plink" --bfile "$OUTPUT_DIR/kinship_step1" --indep-pairwise 50 5 0.2 --out "$OUTPUT_DIR/pruned_snps"
-"$BIN_DIR/plink" --bfile "$OUTPUT_DIR/kinship_step1" --extract "$OUTPUT_DIR/pruned_snps.prune.in" --make-bed --out "$OUTPUT_DIR/QCed.kinship"
+if [ -f "$OUTPUT_DIR/QCed.kinship.bed" ] && [ -f "$OUTPUT_DIR/QCed.kinship.bim" ] && [ -f "$OUTPUT_DIR/QCed.kinship.fam" ]; then
+    echo ">> QCed.kinship already exists. Skipping kinship QC."
+else
+    "$BIN_DIR/plink" --bfile "$input_kinship" --geno 0.05 --maf 0.05 --mind 0.15 --hwe 1e-6 --make-bed --out "$OUTPUT_DIR/kinship_step1"
+    "$BIN_DIR/plink" --bfile "$OUTPUT_DIR/kinship_step1" --indep-pairwise 50 5 0.2 --out "$OUTPUT_DIR/pruned_snps"
+    "$BIN_DIR/plink" --bfile "$OUTPUT_DIR/kinship_step1" --extract "$OUTPUT_DIR/pruned_snps.prune.in" --make-bed --out "$OUTPUT_DIR/QCed.kinship"
+fi

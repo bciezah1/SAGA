@@ -8,6 +8,7 @@ model="model1"
 RAW_GWAS_FILE="$OUTPUT_DIR/mega_scores_chr1_${model}_raw.txt"
 MANHATTAN_INPUT="$OUTPUT_DIR/manhattan_input.txt"
 SUM_STATS="$OUTPUT_DIR/sum_stats.txt"
+FINAL_SUM_STATS="$OUTPUT_DIR/output/tables/sum_stats.txt"
 PLOT_DIR="$OUTPUT_DIR/output/plots"
 
 TEMP1="$OUTPUT_DIR/temp1.tmp"
@@ -15,6 +16,17 @@ TEMP_FULL="$OUTPUT_DIR/temp_full.tmp"
 TEMP_FILTERED="$OUTPUT_DIR/temp_filtered.tmp"
 
 mkdir -p "$PLOT_DIR"
+mkdir -p "$OUTPUT_DIR/output/tables"
+
+if [ -f "$FINAL_SUM_STATS" ]; then
+    echo ">> Final sum_stats.txt already exists at $FINAL_SUM_STATS. Skipping postprocessing."
+    exit 0
+fi
+
+if [ -f "$SUM_STATS" ]; then
+    echo ">> sum_stats.txt already exists at $SUM_STATS. Skipping postprocessing."
+    exit 0
+fi
 
 if [ ! -f "$RAW_GWAS_FILE" ]; then
     echo "ERROR: expected GWAS result file not found: $RAW_GWAS_FILE"
