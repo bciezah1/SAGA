@@ -187,7 +187,7 @@ SAGA includes three pipelines: The first one using **PLINK**, the second one usi
       full_path_to_geno/geno  \                       # genotype data in plink format
       full_path_to_pheno/pheno_binary.txt  \          # pheno file
       COV1,COV2,PC1,PC2,PC3,PC4,PC5 \                 # list of covariates
-      COV1 \                                          # binary covariates required by saige
+      COV1 \                                          # categorical covariates (e.g. SEX, COHORT). Continuous covariates such as AGE or PCs should not be listed here.
       PHENO \                                         # target variable
       binary \                                        # type of variable
       myoutput                                        # working directory
